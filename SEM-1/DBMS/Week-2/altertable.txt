@@ -1,0 +1,8 @@
+1.alter table proj add constraint addprimarykey primary key(dno,projno);
+	
+alter table task add constraint addforeignkey foreign key(dno,projid) references proj(dno,projno);
+
+
+2. alter table emp add(projid char(3));
+
+alter table emp add foreign key(deptno,projid)references proj(dno,projno); 

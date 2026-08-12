@@ -1,0 +1,83 @@
+SQL> create table marks(
+  2  regno number(3),
+  3  mark1 number(3) check(mark1>=0 and mark2<=100),
+  4  mark2 numbers(3) check(mark2 between 0 and 100),
+  5  total number(3),
+  6  grade char(2) check(grade in('a+','a','b','c','d','e','f'));
+mark1 number(3) check(mark1>=0 and mark2<=100),
+                                              *
+ERROR at line 3:
+ORA-02438: Column check constraint cannot reference other columns 
+
+
+SQL> create table marks(
+  2  regno number(3),
+  3  mark1 number(3) check(mark1>=0 and mark1<=100),
+  4  mark2 numbers(3) check(mark2 between 0 and 100),
+  5  total number(3),
+  6  grade char(2) check(grade in('a+','a','b','c','d','e','f'));
+mark2 numbers(3) check(mark2 between 0 and 100),
+             *
+ERROR at line 4:
+ORA-00907: missing right parenthesis 
+
+
+SQL> create table marks(
+  2  regno number(3),
+  3  mark1 number(3) check(mark1>=0 and mark2<=100),
+  4  mark2 number(3) check(mark2 between 0 and 100),
+  5  total number(3),
+  6  grade char(2) check(grade in('a+','a','b','c','d','e','f'));
+mark1 number(3) check(mark1>=0 and mark2<=100),
+                                              *
+ERROR at line 3:
+ORA-02438: Column check constraint cannot reference other columns 
+
+
+SQL> create table marks(
+  2  regno number(3),
+  3  mark1 number(3) check(mark1>=0 and mark1<=100),
+  4  mark2 numbers(3) check(mark2 between 0 and 100),
+  5  total number(3),
+  6  grade char(2) check(grade in('a+','a','b','c','d','e','f'));
+mark2 numbers(3) check(mark2 between 0 and 100),
+             *
+ERROR at line 4:
+ORA-00907: missing right parenthesis 
+
+
+SQL> create table marks(
+  2  regno number(3),
+  3  mark1 number(3) check(mark1>=0 and mark1<=100),
+  4  mark2 number(3) check(mark2 between 0 and 100),
+  5  total number(3),
+  6  grade char(2) check(grade in('a+','a','b','c','d','e','f'));
+grade char(2) check(grade in('a+','a','b','c','d','e','f'))
+                                                          *
+ERROR at line 6:
+ORA-00907: missing right parenthesis 
+
+
+SQL>  create table marks(
+  2    2  regno number(3),
+  3    3  mark1 number(3) check(mark1>=0 and mark1<=100),
+  4    4  mark2 number(3) check(mark2 between 0 and 100),
+  5    5  total number(3),
+  6    6  grade char(2) check(grade in('a+','a','b','c','d','e','f'));
+  2  regno number(3),
+  *
+ERROR at line 2:
+ORA-00904: : invalid identifier 
+
+
+SQL> CREATE TABLE marks (
+  2      regno NUMBER(3),
+  3      mark1 NUMBER(3) CHECK (mark1 BETWEEN 0 AND 100),
+  4      mark2 NUMBER(3) CHECK (mark2 BETWEEN 0 AND 100),
+  5      total NUMBER(3),
+  6      grade VARCHAR2(2) CHECK (grade IN ('A+','A','B','C','D','E','F'))
+  7  );
+
+Table created.
+
+SQL> spool off;

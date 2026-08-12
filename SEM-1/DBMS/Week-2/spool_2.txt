@@ -1,0 +1,38 @@
+SQL> alter table proj add constraint addprimarykey primary key(dno,projno);
+
+Table altered.
+
+SQL> alter table task add constraint addforeignkey foreign key(dno,projid) references proj(dno,projid);
+alter table task add constraint addforeignkey foreign key(dno,projid) references proj(dno,projid)
+                                                                                          *
+ERROR at line 1:
+ORA-00904: "PROJID": invalid identifier 
+
+
+SQL> alter table task add constraint addforeignkey foreign key(dno,projid) references proj(dno,projno);
+
+Table altered.
+
+SQL> alter table emp add(projid char(3));
+
+Table altered.
+
+SQL> desc emp;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPNO                                     NOT NULL NUMBER(3)
+ ENAME                                     NOT NULL VARCHAR2(15)
+ JOB                                                VARCHAR2(15)
+ MGRID                                              NUMBER(3)
+ DATEOFBIRTH                                        DATE
+ SALARY                                             NUMBER(10,2)
+ COMM                                               NUMBER(10,2)
+ DEPTNO                                             CHAR(3)
+ DATEJOIN                                           DATE
+ PROJID                                             CHAR(3)
+
+SQL> alter table emp add foreign key(deptno,projid)references proj(dno,projno);
+
+Table altered.
+
+SQL> spool off;

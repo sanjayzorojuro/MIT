@@ -1,0 +1,275 @@
+SQL> create table dept (
+  2  dno varchar(3) primaray key,
+  3  dname varchar(15),
+  4  zone varchae(10) default 'west');
+dno varchar(3) primaray key,
+               *
+ERROR at line 2:
+ORA-00907: missing right parenthesis 
+
+
+SQL> create table dept (
+  2  dno varchar(3) primaraykey,
+  3  dname varchar(15),
+  4  zone varchae(10) default 'west');
+dno varchar(3) primaraykey,
+               *
+ERROR at line 2:
+ORA-00907: missing right parenthesis 
+
+
+SQL> create table dept (
+  2  dno varchar(3) primary key,
+  3  dname varchar(15),
+  4  zone varchae(10) default 'west');
+zone varchae(10) default 'west')
+            *
+ERROR at line 4:
+ORA-00907: missing right parenthesis 
+
+
+SQL> create table dept (
+  2  dno varchar(3) primaraykey,
+  3  
+SQL> 
+SQL> create table dept (
+  2  dno varchar(3) primary key,
+  3  dname varchar(15),
+  4  zone varchar(10) default 'west');
+
+Table created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> create table employee(
+  2  empcode number(3) primary key,
+  3  name varchar(15),
+  4  salary number(7,1),
+  5  dept_name varchar(3) foreign key references dept);
+dept_name varchar(3) foreign key references dept)
+                     *
+ERROR at line 5:
+ORA-00907: missing right parenthesis 
+
+
+SQL> create table employee(
+  2  empcode number(3) primary key,
+  3  name varchar(15),
+  4  salary number(7,1),
+  5  dept_name varchar(3) foerign key references dept);
+dept_name varchar(3) foerign key references dept)
+                     *
+ERROR at line 5:
+ORA-00907: missing right parenthesis 
+
+
+SQL> create table employee(
+  2  empcode number(3) primary key,
+  3  name varchar(15),
+  4  salary number(7,1),
+  5  dept_name varchar(3) foerignkey references dept);
+dept_name varchar(3) foerignkey references dept)
+                     *
+ERROR at line 5:
+ORA-00907: missing right parenthesis 
+
+
+SQL> create table employee(
+  2  name varchar(15),
+  3  name varchar(15),
+  4  
+SQL> 
+SQL> create table employee(
+  2  empcode number(3) primary key,
+  3  name varchar(15),
+  4  salary number(7,1),
+  5  dept_name varchar(3) foerignkey references dept);
+dept_name varchar(3) foerignkey references dept)
+                     *
+ERROR at line 5:
+ORA-00907: missing right parenthesis 
+
+
+SQL> CREATE TABLE employee (
+  2      empcode NUMBER(3) PRIMARY KEY,
+  3      name VARCHAR2(15),
+  4      salary NUMBER(7,1),
+  5      dept_name VARCHAR2(3) REFERENCES dept(dept_name)
+  6  );
+    dept_name VARCHAR2(3) REFERENCES dept(dept_name)
+                                          *
+ERROR at line 5:
+ORA-00904: "DEPT_NAME": invalid identifier 
+
+
+SQL> );CREATE TABLE employee (
+SP2-0734: unknown command beginning ");CREATE T..." - rest of line ignored.
+SQL>     empcode NUMBER(3) PRIMARY KEY,
+SP2-0734: unknown command beginning "empcode NU..." - rest of line ignored.
+SQL>     name VARCHAR2(15),
+SP2-0734: unknown command beginning "name VARCH..." - rest of line ignored.
+SQL>     salary NUMBER(7,1),
+SP2-0734: unknown command beginning "salary NUM..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>     dept_name VARCHAR2(3) REFERENCES dept
+SP2-0734: unknown command beginning "dept_name ..." - rest of line ignored.
+SQL> );
+SP2-0042: unknown command ")" - rest of line ignored.
+SQL> 
+SQL> 
+SQL> 
+SQL> CREATE TABLE employee (
+  2      empcode NUMBER(3) PRIMARY KEY,
+  3      name VARCHAR2(15),
+  4      salary NUMBER(7,1),
+  5      dept_name VARCHAR2(3) REFERENCES dept(dno)
+  6  );
+
+Table created.
+
+SQL> insert into dept values('d1','computer');
+insert into dept values('d1','computer')
+            *
+ERROR at line 1:
+ORA-00947: not enough values 
+
+
+SQL> select * fro tab;
+select * fro tab
+         *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> select * from tab;
+
+TNAME                                                                           
+--------------------------------------------------------------------------------
+TABTYPE        CLUSTERID                                                        
+------------- ----------                                                        
+DEPT                                                                            
+TABLE                                                                           
+                                                                                
+EMPLOYEE                                                                        
+TABLE                                                                           
+                                                                                
+STUDENT                                                                         
+TABLE                                                                           
+                                                                                
+
+SQL> insert into dept values('d1','computer');
+insert into dept values('d1','computer')
+            *
+ERROR at line 1:
+ORA-00947: not enough values 
+
+
+SQL> insert into dept values('d1','computer','west');
+
+1 row created.
+
+SQL> insert into dept values('d2','maths','west');
+
+1 row created.
+
+SQL> select * from dept;
+
+DNO DNAME           ZONE                                                        
+--- --------------- ----------                                                  
+d1  computer        west                                                        
+d2  maths           west                                                        
+
+SQL> select * from employe
+  2  
+SQL> 
+SQL> select * from employee;
+
+no rows selected
+
+SQL> insert into dept values('d3','sales','south');
+
+1 row created.
+
+SQL> select * from dept;
+
+DNO DNAME           ZONE                                                        
+--- --------------- ----------                                                  
+d1  computer        west                                                        
+d2  maths           west                                                        
+d3  sales           south                                                       
+
+SQL> insert into employee values(100,'rajesh','d1',10000);
+insert into employee values(100,'rajesh','d1',10000)
+                                         *
+ERROR at line 1:
+ORA-01722: invalid number 
+
+
+SQL> insert into employee values(100,'rajesh',d1,10000);
+insert into employee values(100,'rajesh',d1,10000)
+                                         *
+ERROR at line 1:
+ORA-00984: column not allowed here 
+
+
+SQL> insert into employee values(100,'rajesh','d1',10000);
+insert into employee values(100,'rajesh','d1',10000)
+                                         *
+ERROR at line 1:
+ORA-01722: invalid number 
+
+
+SQL> insert into employee values(100,'rajesh','sales',10000);
+insert into employee values(100,'rajesh','sales',10000)
+                                         *
+ERROR at line 1:
+ORA-01722: invalid number 
+
+
+SQL> insert into employee values(100,'rajesh',10000,'d1');
+
+1 row created.
+
+SQL> insert into employee values(101,'ravi',100000,'d2');
+
+1 row created.
+
+SQL> insert into employee values(103,'adithya',20000,'d3');
+
+1 row created.
+
+SQL> select * from employee;
+
+   EMPCODE NAME                SALARY DEP                                       
+---------- --------------- ---------- ---                                       
+       100 rajesh               10000 d1                                        
+       101 ravi                100000 d2                                        
+       103 adithya              20000 d3                                        
+
+SQL> commit;
+
+Commit complete.
+
+SQL> insert into employee values(103,'adithya',200000,'d3');
+insert into employee values(103,'adithya',200000,'d3')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (MCA020.SYS_C0030580) violated 
+
+
+SQL> spool off;
+SQL> insert into employee values(102,'nishan',400000,'d2');
+
+1 row created.
+
+SQL> commit
+  2  commit
+  3  
+SQL> commit;
+
+Commit complete.
+
+SQL> spool off;
