@@ -1,0 +1,43 @@
+create table dept(
+	dno char(3)constraint cunique unique constraint c_dno_start_with_d check(dno like ('D%')),
+	dname varchar(15) not null constraint dname_unique unique,
+	location char(3) constraint location check(location in('MUB','HYB','BNG','MNG','CHN')));
+
+create table emp(
+	empno number(3)primary key,
+	ename varchar(15)not null,
+	job varchar(15)constraint job_check check(job in('MGR','A_MGR','CLK','DEV','ENG','CEO','GM')),
+	mgrid number(3)constraint foreignkey_manager_id references emp,
+	dateofbirth date, 
+	salary number(10,2) constraint check_sal check(salary>20000),
+	comm number(10,2) default '1000',
+	deptno char(3) references dept(dno) on delete cascade,
+	datejoin date,constraint c_db check(datejoin>dateofbirth));
+
+create table proj(
+	dno char(3)constraint fkdept references dept(dno),
+	projno char(3)not null constraint projectno check(projno like('p%')),
+	projname varchar(20)not null,
+	projcredit number(2)constraint projectcredit check(projcredit between 0 and 10),
+	startdate date not null,
+	enddate date,constraint enddate check(enddate>startdate));
+
+create table task(
+	projid char(3),
+	dno char(3),
+	taskid number(3),
+	taskname varchar(30)not null,
+	startdate date not null,
+	enddate date,
+	status varchar(12),
+ 	constraint checkdate check(enddate>startdate));
+	
+create table department(
+	depid number(2)primary key,
+	empno number(3)references emp,
+	departmentname varchar(20) not null,
+	gender char(1)check(gender in('M','F')),
+	dateofbirth date not null,
+	relationship varchar(15)constraint checkrelationship check(relationship in('SPOUSE','CHILD','PARENT')),
+	nompct number(5,2)constraint checkpct check(nompct between 0 and 100),
+	medcover varchar2(3)DEFAULT 'NO'check(medcover in('YES','NO')) );

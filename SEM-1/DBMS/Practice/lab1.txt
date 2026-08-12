@@ -1,0 +1,40 @@
+SQL> 
+SQL> 
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                                 NUMBER(4)
+ NAME                                               VARCHAR2(20)
+ DEPT_NAME                                          VARCHAR2(20)
+ TOTAL_CRED                                         NUMBER(3)
+
+SQL> select * from student;
+
+        ID NAME                 DEPT_NAME            TOTAL_CRED                 
+---------- -------------------- -------------------- ----------                 
+       101 adithya              computerscience              20                 
+       105 hari                 maths                        20                 
+       102 nishan               computerscience              25                 
+       103 kishan               computerscience              30                 
+       104 tanishk              computerscience              20                 
+       106 vikas                maths                        30                 
+       101 adi                  cs                           20                 
+
+7 rows selected.
+
+SQL> spool off;
+SQL> select id,name from student;
+
+        ID NAME                                                                 
+---------- --------------------                                                 
+       101 adithya                                                              
+       105 hari                                                                 
+       102 nishan                                                               
+       103 kishan                                                               
+       104 tanishk                                                              
+       106 vikas                                                                
+       101 adi                                                                  
+
+7 rows selected.
+
+SQL> spool off;

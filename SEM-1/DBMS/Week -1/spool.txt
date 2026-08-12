@@ -1,0 +1,219 @@
+SQL> create table dept(
+  2  	dno char(3)constraint cunique unique constraint c_dno_start_with_d check(dno like (D%)),
+  3  	dname varchar(15) not null constraint dname_unique unique,
+  4  	location char(3) constraint location check(location in('MUB','HYB','BNG','MNG','CHN')));
+	dno char(3)constraint cunique unique constraint c_dno_start_with_d check(dno like (D%)),
+	                                                                                    *
+ERROR at line 2:
+ORA-00911: invalid character 
+
+
+SQL> create table dept(
+  2  	dno char(3)constraint cunique unique constraint c_dno_start_with_d check(dno like ('D%')),
+  3  	dname varchar(15) not null constraint dname_unique unique,
+  4  	location char(3) constraint location check(location in('MUB','HYB','BNG','MNG','CHN')));
+create table dept(
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> drop table dept
+  2  
+SQL> drop table dept;
+drop table dept
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys 
+
+
+SQL> drop table emp;
+drop table emp
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select * from tab;
+
+TNAME                                                                           
+--------------------------------------------------------------------------------
+TABTYPE        CLUSTERID                                                        
+------------- ----------                                                        
+DEPT                                                                            
+TABLE                                                                           
+                                                                                
+EMPLOYEE                                                                        
+TABLE                                                                           
+                                                                                
+MARKS                                                                           
+TABLE                                                                           
+                                                                                
+
+TNAME                                                                           
+--------------------------------------------------------------------------------
+TABTYPE        CLUSTERID                                                        
+------------- ----------                                                        
+STUDENT                                                                         
+TABLE                                                                           
+                                                                                
+
+SQL> drop table employee;
+
+Table dropped.
+
+SQL> drop table dept;
+
+Table dropped.
+
+SQL> create table dept(
+  2  	dno char(3)constraint cunique unique constraint c_dno_start_with_d check(dno like ('D%')),
+  3  	dname varchar(15) not null constraint dname_unique unique,
+  4  	location char(3) constraint location check(location in('MUB','HYB','BNG','MNG','CHN')));
+
+Table created.
+
+SQL> create table emp(
+  2  	empno number(3)primary key,
+  3  	ename varchar(15)not null,
+  4  	job varchar(15)constraint job_check check(job in('MGR','A_MGR','CLK','DEV','ENG','CEO','GM')),
+  5  	mgrid number(3)constraint foreignkey_manager_id references(emp),
+  6  	dateofbirth date,
+  7  	salary number(10,2) constraint check_sal check(salary>20000),
+  8  	comm number(10,2) default '1000',
+  9  	deptno char(3) references dept on_delete_cascade,
+ 10  	datejoin date,constraint c_db check(datejoin>dateofbirth));
+	mgrid number(3)constraint foreignkey_manager_id references(emp),
+	                                                          *
+ERROR at line 5:
+ORA-00903: invalid table name 
+
+
+SQL> create table emp(
+  2  	empno number(3)primary key,
+  3  	ename varchar(15)not null,
+  4  	job varchar(15)constraint job_check check(job in('MGR','A_MGR','CLK','DEV','ENG','CEO','GM')),
+  5  	mgrid number(3)constraint foreignkey_manager_id references emp,
+  6  	dateofbirth date,
+  7  	salary number(10,2) constraint check_sal check(salary>20000),
+  8  	comm number(10,2) default '1000',
+  9  	deptno char(3) references dept on_delete_cascade,
+ 10  	datejoin date,constraint c_db check(datejoin>dateofbirth));
+	deptno char(3) references dept on_delete_cascade,
+	                               *
+ERROR at line 9:
+ORA-00907: missing right parenthesis 
+
+
+SQL> create table emp(
+  2  	empno number(3)primary key,
+  3  	ename varchar(15)not null,
+  4  	job varchar(15)constraint job_check check(job in('MGR','A_MGR','CLK','DEV','ENG','CEO','GM')),
+  5  	mgrid number(3)constraint foreignkey_manager_id references emp,
+  6  	dateofbirth date,
+  7  	salary number(10,2) constraint check_sal check(salary>20000),
+  8  	comm number(10,2) default '1000',
+  9  	deptno char(3) references dept on_delete_cascade(),
+ 10  	datejoin date,constraint c_db check(datejoin>dateofbirth));
+	deptno char(3) references dept on_delete_cascade(),
+	                               *
+ERROR at line 9:
+ORA-00907: missing right parenthesis 
+
+
+SQL> create table emp(
+  2  	empno number(3)primary key,
+  3  	ename varchar(15)not null,
+  4  	job varchar(15)constraint job_check check(job in('MGR','A_MGR','CLK','DEV','ENG','CEO','GM')),
+  5  	mgrid number(3)constraint foreignkey_manager_id references emp,
+  6  	dateofbirth date,
+  7  	salary number(10,2) constraint check_sal check(salary>20000),
+  8  	comm number(10,2) default '1000',
+  9  	deptno char(3) references dept on delete cascade,
+ 10  	datejoin date,constraint c_db check(datejoin>dateofbirth));
+	deptno char(3) references dept on delete cascade,
+	                          *
+ERROR at line 9:
+ORA-02268: referenced table does not have a primary key 
+
+
+SQL> 
+SQL> create table emp(
+  2  	empno number(3)primary key,
+  3  	ename varchar(15)not null,
+  4  	job varchar(15)constraint job_check check(job in('MGR','A_MGR','CLK','DEV','ENG','CEO','GM')),
+  5  	mgrid number(3)constraint foreignkey_manager_id references emp,
+  6  	dateofbirth date,
+  7  	salary number(10,2) constraint check_sal check(salary>20000),
+  8  	comm number(10,2) default '1000',
+  9  	deptno char(3) references dept(dno) on delete cascade,
+ 10  	datejoin date,constraint c_db check(datejoin>dateofbirth));
+
+Table created.
+
+SQL> create table proj(
+  2  	dno char(3)constraint fkdept references dept(dno),
+  3  	projno char(3)not null constraint projectno check(projno like('p%')),
+  4  	projname varchar(20)not null,
+  5  	projcredit number(2)constraint projectcredit check(projcredit between 0 and 10),
+  6  	startdate date not null,
+  7  	enddate date,constraint enddate check(enddate>startdate));
+
+Table created.
+
+SQL> create table task(
+  2  	projid char(3),
+  3  	dno char(3),
+  4  	taskid number(3),
+  5  	taskname varchar(30)not null,
+  6  	startdate date not null,
+  7  	enddate date,
+  8  	status varchar(12),
+  9   	constraint checkdate check(enddate>startdate));
+
+Table created.
+
+SQL> 
+SQL> create table department(
+  2  	depid number(2)primary key,
+  3  	empno number(3)references emp,
+  4  	departmentname varchar(20) not null,
+  5  	gender char(1)check(gender in('M','F')),
+  6  	dateofbirth date not null,
+  7  	relationship varchar(15)constraint checkrelationship check(relationship in('SPOUSE','CHILD','PARENT')),
+  8  	nompct number(5,2)constraint checkpct check(nompct between 0 and 100),
+  9  	medcover varchar2(3)check(medcover in('YES','NO'))default 'NO');
+	medcover varchar2(3)check(medcover in('YES','NO'))default 'NO')
+	                                                  *
+ERROR at line 9:
+ORA-00907: missing right parenthesis 
+
+
+SQL> create table department(
+  2  	depid number(2)primary key,
+  3  	empno number(3)references emp,
+  4  	departmentname varchar(20) not null,
+  5  	gender char(1)check(gender in('M','F')),
+  6  	dateofbirth date not null,
+  7  	relationship varchar(15)constraint checkrelationship check(relationship in('SPOUSE','CHILD','PARENT')),
+  8  	nompct number(5,2)constraint checkpct check(nompct between 0 and 100),
+  9  	medcover varchar2(3)check(medcover in('YES','NO')) DEFAULT 'NO');
+	medcover varchar2(3)check(medcover in('YES','NO')) DEFAULT 'NO')
+	                                                   *
+ERROR at line 9:
+ORA-00907: missing right parenthesis 
+
+
+SQL> create table department(
+  2  	depid number(2)primary key,
+  3  	empno number(3)references emp,
+  4  	departmentname varchar(20) not null,
+  5  	gender char(1)check(gender in('M','F')),
+  6  	dateofbirth date not null,
+  7  	relationship varchar(15)constraint checkrelationship check(relationship in('SPOUSE','CHILD','PARENT')),
+  8  	nompct number(5,2)constraint checkpct check(nompct between 0 and 100),
+  9  	medcover varchar2(3)DEFAULT 'NO'check(medcover in('YES','NO')) );
+
+Table created.
+
+SQL> spool off;
