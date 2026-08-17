@@ -1,3 +1,5 @@
+//program to check if the number is cube or not.
+
 #include <iostream>
 using namespace std;
 

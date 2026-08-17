@@ -1,3 +1,5 @@
+//program to print the following pattrens.
+
 #include <iostream>
 using namespace std;
 

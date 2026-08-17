@@ -1,3 +1,5 @@
+//program to convert decimal number into binary and viceversa.
+
 #include <iostream>
 using namespace std;
 
