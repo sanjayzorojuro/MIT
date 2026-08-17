@@ -1,3 +1,5 @@
+//program to find the prime numbers between two range.
+
 #include <iostream>
 using namespace std;
 

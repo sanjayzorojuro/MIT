@@ -1,3 +1,5 @@
+//program to find the first n fibonacci series.
+
 #include <iostream>
 using namespace std;
 
