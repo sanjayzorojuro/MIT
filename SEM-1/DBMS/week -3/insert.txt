@@ -20,7 +20,7 @@ insert into emp values(100,'Ravi','MGR',111,'10-oct-1995',32000,5000,'D1','2-oct
 insert into emp values(101,'Ravi','MGR',111,'10-oct-1995',32000,5000,'D1','2-oct-2006',null);
 //this again will not be inserted because manager id is referencing the empid but there are no employee so first we need to insert the record of manager.
 //since the projid or the project table is not inserted we cannot insert projid in this table so leave null for now and later modify
-
+ 
 insert into emp values(150,'Adithya','CEO',null,'10-dec-1990',60000,30000,null,'3-dec-2008',null);
 insert into emp values(111,'Raghu','ENG',150,'10-dec-1984',45000,15000,null,'3-dec-2008',null);
 insert into emp values(102,'Raviraj','ENG',106,'10-jan-1985',24000,6000,'D1','12-nov-2010',null);
