@@ -6,3 +6,18 @@ alter table task add constraint addforeignkey foreign key(dno,projid) references
 2. alter table emp add(projid char(3));
 
 alter table emp add foreign key(deptno,projid)references proj(dno,projno); 
+
+
+3. alter table emp add constraint valid_empno_cons check (empno > 100);
+
+4. alter table dept add(dept_budget number(7));
+
+5. alter table proj add(proj_fund number(7));
+
+6. alter table task add check(status in('PENDING','INPROGRESS','COMPLETED'));
+
+7. alter table task add primary key(projid,taskid,dno);
+
+8. alter table emp add (bonus number(8,2)default '0');
+
+9.

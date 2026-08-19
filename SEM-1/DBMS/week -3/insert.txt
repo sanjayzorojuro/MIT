@@ -1,0 +1,97 @@
+insert into dept(dno,dname,location,dept_budget)values('D1','Marketing','CHN',500000);
+insert into dept(dno,dname,location,dept_budget)values('D2','Research','MNG',300000);
+insert into dept(dno,dname,location,dept_budget)values('D3','IT','BNG',400000);
+
+insert into dept(dno,dname,location,dept_budget)values('D4','HR','BGG',200000);
+//bgg location is not a valid input
+insert into dept(dno,dname,location,dept_budget)values('D4','HR','BNG',200000);
+
+insert into dept(dno,dname,location,dept_budget)values('D5','Accounts','BNG',500000);
+insert into dept(dno,dname,location,dept_budget)values(null,'Corporate','HYB',700000);
+
+
+
+
+
+
+insert into emp values(100,'Ravi','MGR',111,'10-oct-1995',32000,5000,'D1','2-oct-2006','P1');
+//emp no check constraint violated empno should b greater than 100
+
+insert into emp values(101,'Ravi','MGR',111,'10-oct-1995',32000,5000,'D1','2-oct-2006',null);
+//this again will not be inserted because manager id is referencing the empid but there are no employee so first we need to insert the record of manager.
+//since the projid or the project table is not inserted we cannot insert projid in this table so leave null for now and later modify
+
+insert into emp values(150,'Adithya','CEO',null,'10-dec-1990',60000,30000,null,'3-dec-2008',null);
+insert into emp values(111,'Raghu','ENG',150,'10-dec-1984',45000,15000,null,'3-dec-2008',null);
+insert into emp values(102,'Raviraj','ENG',106,'10-jan-1985',24000,6000,'D1','12-nov-2010',null);
+
+insert into emp values(106,'Nishan','A_MGR',111,'2-oct-1986',50000,5000,'D2','24-nov-1985',null);
+//joining date should be greater than dob
+insert into emp values(106,'Nishan','A_MGR',111,'2-oct-1986',50000,5000,'D2','24-nov-1995',null);
+
+insert into emp values(103,'Kishan','DEV',111,'10-dec-1980',44000,4000,'D1','22-sep-2001',null);
+
+insert into emp values(103,'Varun','CLK',111,'2-aug-1980',10000,2000,'D1','12-oct-2002',null);
+//cannot insert empno should be unique.
+insert into emp values(105,'Varun','CLK',111,'2-aug-1980',21000,2000,'D1','12-oct-2002',null);
+
+insert into emp values(125,'Manu','DEV',150,'10-dec-1980',29000,4000,'D4','12-oct-2002',null);
+insert into emp values(104,'Vikas','CLK',125,'2-oct-1980',25000,3000,'D2','26-nov-2005',null);
+insert into emp values(123,'Mahesh','CLK',150,'10-dec-1984',25000,3000,'D3','23-dec-2008',null);
+
+insert into emp values(108,'Suresh','DEV',106,'10-nov-1980',45000,5000,'D9','2-oct-2005',null);
+//deptno d9 is not there in dept table so we need to give valid input.
+insert into emp values(108,'Suresh','DEV',106,'10-nov-1980',45000,5000,'D3','2-oct-2005',null);
+
+insert into emp values(103,'Vignesh','DEV',11,'10-jul-1980',45000,5000,'D1','26-jan-',null);
+//there are multiple errors 103 is already there , 11 mgrid is not valid and the date year is not mentioned.
+insert into emp values(109,'Vignesh','DEV',111,'10-jul-1980',45000,5000,'D1','26-jan-1999',null);
+
+insert into emp values(null,'Harish','CLK',106,'10-jan-1985',18000,5000,'D5','10-dec-2007',null);
+//since empno is primary key we cannot insert null values , and also there is a condition where the salary should be greater than 20000.
+insert into emp values(110,'Harish','CLK',106,'10-jan-1985',28000,5000,'D5','10-dec-2007',null);
+
+insert into emp values(112,'Prathith','DEV',150,'20-jan-1995',60000,4000,'D1','10-dec-2005',null);
+insert into emp values(113,'Tanishk','DEV',150,'15-jan-1985',50000,5000,'D5','15-jan-2009',null);
+
+
+
+
+
+insert into proj values('D1','p1','Payroll Automation','4','01-jan-2022','30-jun-2022',500000);
+insert into proj values('D2','p1','AI Research Platfom','7','15-feb-2022','14-feb-2023',900000);
+insert into proj values('D3','p2','Data Warehouse MIGR','8','01-mar-2022','31-aug-2022',650000);
+insert into proj values('D4','p3','CRM Revamp','5','10-apr-2022','09-oct-2022',400000);
+insert into proj values('D1','p3','ERP Revamp','9','11-jan-2020','12-dec-2021',500000);
+insert into proj values('D5','p4','WareHouse Automation','10','01-jan-2022','30-jun-2022',500000);
+
+
+//now since we have inserted the project numbers we can update the emp table and add project
+update emp set projid='p1' where empno='101';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

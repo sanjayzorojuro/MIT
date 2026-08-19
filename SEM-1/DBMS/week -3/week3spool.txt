@@ -1,0 +1,775 @@
+SQL> insert into dept(dno,dname,location,dept_budget)values('D1','Marketing','CHN',500000);
+
+1 row created.
+
+SQL> 
+SQL> insert into dept(dno,dname,location,dept_budget)values('D2','Research','MNG',300000);
+
+1 row created.
+
+SQL> insert into dept(dno,dname,location,dept_budget)values('D3','IT','BNG',400000);
+
+1 row created.
+
+SQL> insert into dept(dno,dname,location,dept_budget)values('D4','HR','BGG',200000);
+insert into dept(dno,dname,location,dept_budget)values('D4','HR','BGG',200000)
+*
+ERROR at line 1:
+ORA-02290: check constraint (MCA020.LOCATION) violated 
+
+
+SQL> insert into dept(dno,dname,location,dept_budget)values('D4','HR','BNG',200000);
+
+1 row created.
+
+SQL> insert into dept(dno,dname,location,dept_budget)values('D5','Accounts','BNG',500000);
+
+1 row created.
+
+SQL> insert into dept(dno,dname,location,dept_budget)values('null','Corporate','HYD',700000);
+insert into dept(dno,dname,location,dept_budget)values('null','Corporate','HYD',700000)
+                                                       *
+ERROR at line 1:
+ORA-12899: value too large for column "MCA020"."DEPT"."DNO" (actual: 4, 
+maximum: 3) 
+
+
+SQL> insert into dept(dno,dname,location,dept_budget)values('NULL','Corporate','HYD',700000);
+insert into dept(dno,dname,location,dept_budget)values('NULL','Corporate','HYD',700000)
+                                                       *
+ERROR at line 1:
+ORA-12899: value too large for column "MCA020"."DEPT"."DNO" (actual: 4, 
+maximum: 3) 
+
+
+SQL> desc dept;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DNO                                                CHAR(3)
+ DNAME                                     NOT NULL VARCHAR2(15)
+ LOCATION                                           CHAR(3)
+ DEPT_BUDGET                                        NUMBER(7)
+
+SQL> insert into dept(dno,dname,location,dept_budget)values(NULL,'Corporate','HYD',700000);
+insert into dept(dno,dname,location,dept_budget)values(NULL,'Corporate','HYD',700000)
+*
+ERROR at line 1:
+ORA-02290: check constraint (MCA020.LOCATION) violated 
+
+
+SQL> insert into dept(dno,dname,location,dept_budget)values(null,'Corporate','HYD',700000);
+insert into dept(dno,dname,location,dept_budget)values(null,'Corporate','HYD',700000)
+*
+ERROR at line 1:
+ORA-02290: check constraint (MCA020.LOCATION) violated 
+
+
+SQL> insert into dept(dno,dname,location,dept_budget)values(null,'Corporate','HYB',700000);
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from dept;
+
+DNO DNAME           LOC DEPT_BUDGET                                             
+--- --------------- --- -----------                                             
+D1  Marketing       CHN      500000                                             
+D2  Research        MNG      300000                                             
+D3  IT              BNG      400000                                             
+D4  HR              BNG      200000                                             
+D5  Accounts        BNG      500000                                             
+    Corporate       HYB      700000                                             
+
+6 rows selected.
+
+SQL> insert into dept(dno,dname,location,dept_budget)values('&dno','&dname','&location',&dept_budget);
+Enter value for dno: D6
+Enter value for dname: Marketing
+Enter value for location: MNG
+Enter value for dept_budget: 400000
+old   1: insert into dept(dno,dname,location,dept_budget)values('&dno','&dname','&location',&dept_budget)
+new   1: insert into dept(dno,dname,location,dept_budget)values('D6','Marketing','MNG',400000)
+insert into dept(dno,dname,location,dept_budget)values('D6','Marketing','MNG',400000)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (MCA020.DNAME_UNIQUE) violated 
+
+
+SQL> insert into dept(dno,dname,location,dept_budget)values('&dno','&dname','&location',&dept_budget);
+Enter value for dno: D6
+Enter value for dname: Sales
+Enter value for location: HYB
+Enter value for dept_budget: 500000
+old   1: insert into dept(dno,dname,location,dept_budget)values('&dno','&dname','&location',&dept_budget)
+new   1: insert into dept(dno,dname,location,dept_budget)values('D6','Sales','HYB',500000)
+
+1 row created.
+
+SQL> insert into dept(dno,dname,location,dept_budget)values('&dno','&dname','&location',&dept_budget);
+Enter value for dno: D7
+Enter value for dname: Developer
+Enter value for location: BNG
+Enter value for dept_budget: 900000
+old   1: insert into dept(dno,dname,location,dept_budget)values('&dno','&dname','&location',&dept_budget)
+new   1: insert into dept(dno,dname,location,dept_budget)values('D7','Developer','BNG',900000)
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from dept;
+
+DNO DNAME           LOC DEPT_BUDGET                                             
+--- --------------- --- -----------                                             
+D1  Marketing       CHN      500000                                             
+D2  Research        MNG      300000                                             
+D3  IT              BNG      400000                                             
+D4  HR              BNG      200000                                             
+D5  Accounts        BNG      500000                                             
+    Corporate       HYB      700000                                             
+D6  Sales           HYB      500000                                             
+D7  Developer       BNG      900000                                             
+
+8 rows selected.
+
+SQL> insert into emp(empno,ename,job,mgrid,datofbirth,salary,comm,deptno,datejoin)values(100,'Ravi','MGR',111,10-10-1995,25000,D1,P1,2-10-2006);
+insert into emp(empno,ename,job,mgrid,datofbirth,salary,comm,deptno,datejoin)values(100,'Ravi','MGR',111,10-10-1995,25000,D1,P1,2-10-2006)
+                                                                                                                             *
+ERROR at line 1:
+ORA-00984: column not allowed here 
+
+
+SQL> desc emp;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPNO                                     NOT NULL NUMBER(3)
+ ENAME                                     NOT NULL VARCHAR2(15)
+ JOB                                                VARCHAR2(15)
+ MGRID                                              NUMBER(3)
+ DATEOFBIRTH                                        DATE
+ SALARY                                             NUMBER(10,2)
+ COMM                                               NUMBER(10,2)
+ DEPTNO                                             CHAR(3)
+ DATEJOIN                                           DATE
+ PROJID                                             CHAR(3)
+
+SQL> 
+SQL> insert into emp(empno,ename,job,mgrid,datofbirth,salary,comm,deptno,projid,datejoin)values(100,'Ravi','MGR',111,10-10-1995,25000,D1,P1,2-10-2006);
+insert into emp(empno,ename,job,mgrid,datofbirth,salary,comm,deptno,projid,datejoin)values(100,'Ravi','MGR',111,10-10-1995,25000,D1,P1,2-10-2006)
+                                                                                    *
+ERROR at line 1:
+ORA-00947: not enough values 
+
+
+SQL> insert into emp(empno,ename,job,mgrid,datofbirth,salary,comm,deptno,projid,datejoin)values(100,'Ravi','MGR',111,10-10-1995,32000,5000,D1,P1,2-10-2006);
+insert into emp(empno,ename,job,mgrid,datofbirth,salary,comm,deptno,projid,datejoin)values(100,'Ravi','MGR',111,10-10-1995,32000,5000,D1,P1,2-10-2006)
+                                                                                                                                         *
+ERROR at line 1:
+ORA-00984: column not allowed here 
+
+
+SQL> insert into emp(empno,ename,job,mgrid,datofbirth,salary,comm,deptno,datejoin,projid)values(100,'Ravi','MGR',111,10-10-1995,32000,5000,D1,2-10-2006,P1);
+insert into emp(empno,ename,job,mgrid,datofbirth,salary,comm,deptno,datejoin,projid)values(100,'Ravi','MGR',111,10-10-1995,32000,5000,D1,2-10-2006,P1)
+                                                                                                                                                   *
+ERROR at line 1:
+ORA-00984: column not allowed here 
+
+
+SQL> desc emp;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPNO                                     NOT NULL NUMBER(3)
+ ENAME                                     NOT NULL VARCHAR2(15)
+ JOB                                                VARCHAR2(15)
+ MGRID                                              NUMBER(3)
+ DATEOFBIRTH                                        DATE
+ SALARY                                             NUMBER(10,2)
+ COMM                                               NUMBER(10,2)
+ DEPTNO                                             CHAR(3)
+ DATEJOIN                                           DATE
+ PROJID                                             CHAR(3)
+
+SQL> insert into emp values(100,'Ravi','MGR',111,10-10-1995,32000,5000,'D1',2-10-2006,'P1');
+insert into emp values(100,'Ravi','MGR',111,10-10-1995,32000,5000,'D1',2-10-2006,'P1')
+                                                 *
+ERROR at line 1:
+ORA-00932: inconsistent datatypes: expected DATE got NUMBER 
+
+
+SQL> insert into emp values(100,'Ravi','MGR',111,'10-10-1995',32000,5000,'D1','2-10-2006','P1');
+insert into emp values(100,'Ravi','MGR',111,'10-10-1995',32000,5000,'D1','2-10-2006','P1')
+                                            *
+ERROR at line 1:
+ORA-01843: not a valid month 
+
+
+SQL> insert into emp values(100,'Ravi','MGR',111,'10-oct-1995',32000,5000,'D1','2-oct-2006','P1');
+insert into emp values(100,'Ravi','MGR',111,'10-oct-1995',32000,5000,'D1','2-oct-2006','P1')
+*
+ERROR at line 1:
+ORA-02290: check constraint (MCA020.VALID_EMPNO_CONS) violated 
+
+
+SQL> insert into emp values(101,'Ravi','MGR',111,'10-oct-1995',32000,5000,'D1','2-oct-2006','P1');
+insert into emp values(101,'Ravi','MGR',111,'10-oct-1995',32000,5000,'D1','2-oct-2006','P1')
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (MCA020.SYS_C0034534) violated - parent key not 
+found 
+
+
+SQL> insert into emp values(150,'Adithya','CEO',null,'10-12-1990',60000,30000,null,3-12-2008',null);
+ERROR:
+ORA-01756: quoted string not properly terminated 
+
+
+SQL> insert into emp values(150,'Adithya','CEO',null,'10-12-1990',60000,30000,null,'3-12-2008',null);
+insert into emp values(150,'Adithya','CEO',null,'10-12-1990',60000,30000,null,'3-12-2008',null)
+                                                *
+ERROR at line 1:
+ORA-01843: not a valid month 
+
+
+SQL> insert into emp values(150,'Adithya','CEO',null,'10-dec-1990',60000,30000,null,'3-dec-2008',null);
+
+1 row created.
+
+SQL> insert into emp values(111,'Raghu','ENG',150,'10-dec-1984',45000,15000,null,'3-dec-2008',null);
+
+1 row created.
+
+SQL> insert into emp values(101,'Ravi','MGR',111,'10-oct-1995',32000,5000,'D1','2-oct-2006','P1');
+insert into emp values(101,'Ravi','MGR',111,'10-oct-1995',32000,5000,'D1','2-oct-2006','P1')
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (MCA020.SYS_C0034534) violated - parent key not 
+found 
+
+
+SQL> select * from emp;
+
+     EMPNO ENAME           JOB                  MGRID DATEOFBIR     SALARY      
+---------- --------------- --------------- ---------- --------- ----------      
+      COMM DEP DATEJOIN  PRO                                                    
+---------- --- --------- ---                                                    
+       150 Adithya         CEO                        10-DEC-90      60000      
+     30000     03-DEC-08                                                        
+                                                                                
+       111 Raghu           ENG                    150 10-DEC-84      45000      
+     15000     03-DEC-08                                                        
+                                                                                
+
+SQL> select * from emp;
+
+     EMPNO ENAME           JOB                  MGRID DATEOFBIR     SALARY      
+---------- --------------- --------------- ---------- --------- ----------      
+      COMM DEP DATEJOIN  PRO                                                    
+---------- --- --------- ---                                                    
+       150 Adithya         CEO                        10-DEC-90      60000      
+     30000     03-DEC-08                                                        
+                                                                                
+       111 Raghu           ENG                    150 10-DEC-84      45000      
+     15000     03-DEC-08                                                        
+                                                                                
+
+SQL> SET LINESIZE 200
+SQL> select * from emp;
+
+     EMPNO ENAME           JOB                  MGRID DATEOFBIR     SALARY       COMM DEP DATEJOIN  PRO                                                                                                 
+---------- --------------- --------------- ---------- --------- ---------- ---------- --- --------- ---                                                                                                 
+       150 Adithya         CEO                        10-DEC-90      60000      30000     03-DEC-08                                                                                                     
+       111 Raghu           ENG                    150 10-DEC-84      45000      15000     03-DEC-08                                                                                                     
+
+SQL> insert into emp values(101,'Ravi','MGR',111,'10-oct-1995',32000,5000,'D1','2-oct-2006','P1');
+insert into emp values(101,'Ravi','MGR',111,'10-oct-1995',32000,5000,'D1','2-oct-2006','P1')
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (MCA020.SYS_C0034534) violated - parent key not found 
+
+
+SQL> insert into emp values(101,'Ravi','MGR',111,'10-oct-1995',32000,5000,'D1','2-oct-2006',null);
+
+1 row created.
+
+SQL> insert into emp values(106,'Nishan','A_MGR',111,'2-oct-1986',50000,5000,'D2','24-nov-1985',null);
+insert into emp values(106,'Nishan','A_MGR',111,'2-oct-1986',50000,5000,'D2','24-nov-1985',null)
+*
+ERROR at line 1:
+ORA-02290: check constraint (MCA020.C_DB) violated 
+
+
+SQL> insert into emp values(106,'Nishan','A_MGR',111,'2-oct-1986',50000,5000,'D2','24-nov-1995',null);
+
+1 row created.
+
+SQL> insert into emp values(102,'Raviraj','ENG',106,'10-jan-1985',24000,6000,'D1','12-nov-2010',null);
+
+1 row created.
+
+SQL> insert into emp values(103,'Kishan','DEV',111,'10-dec-1980',44000,4000,'D1','22-sept-2001',null);
+insert into emp values(103,'Kishan','DEV',111,'10-dec-1980',44000,4000,'D1','22-sept-2001',null)
+                                                                            *
+ERROR at line 1:
+ORA-01861: literal does not match format string 
+
+
+SQL> insert into emp values(103,'Kishan','DEV',111,'10-dec-1980',44000,4000,'D1','22-spt-2001',null);
+insert into emp values(103,'Kishan','DEV',111,'10-dec-1980',44000,4000,'D1','22-spt-2001',null)
+                                                                            *
+ERROR at line 1:
+ORA-01843: not a valid month 
+
+
+SQL> insert into emp values(103,'Kishan','DEV',111,'10-dec-1980',44000,4000,'D1','22-sep-2001',null);
+
+1 row created.
+
+SQL> insert into emp values(103,'Varun','CLRK',111,'2-aug-1980',10000,2000,'D1','12-oct-2002',null);
+insert into emp values(103,'Varun','CLRK',111,'2-aug-1980',10000,2000,'D1','12-oct-2002',null)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (MCA020.SYS_C0032639) violated 
+
+
+SQL> insert into emp values(105,'Varun','CLRK',111,'2-aug-1980',10000,2000,'D1','12-oct-2002',null);
+insert into emp values(105,'Varun','CLRK',111,'2-aug-1980',10000,2000,'D1','12-oct-2002',null)
+*
+ERROR at line 1:
+ORA-02290: check constraint (MCA020.CHECK_SAL) violated 
+
+
+SQL> insert into emp values(105,'Varun','CLRK',111,'2-aug-1980',21000,2000,'D1','12-oct-2002',null);
+insert into emp values(105,'Varun','CLRK',111,'2-aug-1980',21000,2000,'D1','12-oct-2002',null)
+*
+ERROR at line 1:
+ORA-02290: check constraint (MCA020.JOB_CHECK) violated 
+
+
+SQL> insert into emp values(105,'Varun','CLK',111,'2-aug-1980',21000,2000,'D1','12-oct-2002',null);
+
+1 row created.
+
+SQL> insert into emp values(125,'Manu','DEV',150,'10-dec-1980',29000,4000,'D4','12-oct-2002',null);
+
+1 row created.
+
+SQL> insert into emp values(104,'Vikas','CLK',125,'2-oct-1980',25000,3000,'D2','26-nov-2005',null);
+
+1 row created.
+
+SQL> insert into emp values(123,'Mahesh','CLK',150,'10-dec-1984',25000,3000,'D3','23-dec-2008',null);
+
+1 row created.
+
+SQL> insert into emp values(108,'Suresh','DEV',106,'10-nov-1980',45000,5000,'D9','2-oct-2005',null);
+insert into emp values(108,'Suresh','DEV',106,'10-nov-1980',45000,5000,'D9','2-oct-2005',null)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (MCA020.SYS_C0032641) violated - parent key not found 
+
+
+SQL> insert into emp values(108,'Suresh','DEV',106,'10-nov-1980',45000,5000,'D3','2-oct-2005',null);
+
+1 row created.
+
+SQL> select * from emp;
+
+     EMPNO ENAME           JOB                  MGRID DATEOFBIR     SALARY       COMM DEP DATEJOIN  PRO                                                                                                 
+---------- --------------- --------------- ---------- --------- ---------- ---------- --- --------- ---                                                                                                 
+       150 Adithya         CEO                        10-DEC-90      60000      30000     03-DEC-08                                                                                                     
+       111 Raghu           ENG                    150 10-DEC-84      45000      15000     03-DEC-08                                                                                                     
+       101 Ravi            MGR                    111 10-OCT-95      32000       5000 D1  02-OCT-06                                                                                                     
+       106 Nishan          A_MGR                  111 02-OCT-86      50000       5000 D2  24-NOV-95                                                                                                     
+       102 Raviraj         ENG                    106 10-JAN-85      24000       6000 D1  12-NOV-10                                                                                                     
+       103 Kishan          DEV                    111 10-DEC-80      44000       4000 D1  22-SEP-01                                                                                                     
+       105 Varun           CLK                    111 02-AUG-80      21000       2000 D1  12-OCT-02                                                                                                     
+       125 Manu            DEV                    150 10-DEC-80      29000       4000 D4  12-OCT-02                                                                                                     
+       104 Vikas           CLK                    125 02-OCT-80      25000       3000 D2  26-NOV-05                                                                                                     
+       123 Mahesh          CLK                    150 10-DEC-84      25000       3000 D3  23-DEC-08                                                                                                     
+       108 Suresh          DEV                    106 10-NOV-80      45000       5000 D3  02-OCT-05                                                                                                     
+
+11 rows selected.
+
+SQL> insert into emp values(109'Vignesh','DEV',111'10-jul-1980',45000,5000,'D1','26-jan-1999',null);
+insert into emp values(109'Vignesh','DEV',111'10-jul-1980',45000,5000,'D1','26-jan-1999',null)
+                          *
+ERROR at line 1:
+ORA-00917: missing comma 
+
+
+SQL> insert into emp values(109,'Vignesh','DEV',111'10-jul-1980',45000,5000,'D1','26-jan-1999',null);
+insert into emp values(109,'Vignesh','DEV',111'10-jul-1980',45000,5000,'D1','26-jan-1999',null)
+                                              *
+ERROR at line 1:
+ORA-00917: missing comma 
+
+
+SQL> insert into emp values(109,'Vignesh','DEV',111,'10-jul-1980',45000,5000,'D1','26-jan-1999',null);
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> insert into emp values(null,'Harish','CLK',106,'10-jan-1985',18000,5000,'D5','10-dec-2007',null);
+insert into emp values(null,'Harish','CLK',106,'10-jan-1985',18000,5000,'D5','10-dec-2007',null)
+                       *
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("MCA020"."EMP"."EMPNO") 
+
+
+SQL> insert into emp values(110,'Harish','CLK',106,'10-jan-1985',28000,5000,'D5','10-dec-2007',null);
+
+1 row created.
+
+SQL> select * from emp;
+
+     EMPNO ENAME           JOB                  MGRID DATEOFBIR     SALARY       COMM DEP DATEJOIN  PRO                                                                                                 
+---------- --------------- --------------- ---------- --------- ---------- ---------- --- --------- ---                                                                                                 
+       150 Adithya         CEO                        10-DEC-90      60000      30000     03-DEC-08                                                                                                     
+       111 Raghu           ENG                    150 10-DEC-84      45000      15000     03-DEC-08                                                                                                     
+       101 Ravi            MGR                    111 10-OCT-95      32000       5000 D1  02-OCT-06                                                                                                     
+       106 Nishan          A_MGR                  111 02-OCT-86      50000       5000 D2  24-NOV-95                                                                                                     
+       102 Raviraj         ENG                    106 10-JAN-85      24000       6000 D1  12-NOV-10                                                                                                     
+       103 Kishan          DEV                    111 10-DEC-80      44000       4000 D1  22-SEP-01                                                                                                     
+       105 Varun           CLK                    111 02-AUG-80      21000       2000 D1  12-OCT-02                                                                                                     
+       125 Manu            DEV                    150 10-DEC-80      29000       4000 D4  12-OCT-02                                                                                                     
+       104 Vikas           CLK                    125 02-OCT-80      25000       3000 D2  26-NOV-05                                                                                                     
+       123 Mahesh          CLK                    150 10-DEC-84      25000       3000 D3  23-DEC-08                                                                                                     
+       108 Suresh          DEV                    106 10-NOV-80      45000       5000 D3  02-OCT-05                                                                                                     
+
+     EMPNO ENAME           JOB                  MGRID DATEOFBIR     SALARY       COMM DEP DATEJOIN  PRO                                                                                                 
+---------- --------------- --------------- ---------- --------- ---------- ---------- --- --------- ---                                                                                                 
+       109 Vignesh         DEV                    111 10-JUL-80      45000       5000 D1  26-JAN-99                                                                                                     
+       110 Harish          CLK                    106 10-JAN-85      28000       5000 D5  10-DEC-07                                                                                                     
+
+13 rows selected.
+
+SQL> insert into emp values(112,'Prathith','DEV',150,'20-jan-1995',60000,4000,'D1','10-dec-2005',null);
+
+1 row created.
+
+SQL> insert into emp values(113,'Tanishk','DEV',150,'15-jan-1985',50000,5000,'D5','15-jan-2009',null);
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from emp;
+
+     EMPNO ENAME           JOB                  MGRID DATEOFBIR     SALARY       COMM DEP DATEJOIN  PRO                                                                                                 
+---------- --------------- --------------- ---------- --------- ---------- ---------- --- --------- ---                                                                                                 
+       150 Adithya         CEO                        10-DEC-90      60000      30000     03-DEC-08                                                                                                     
+       111 Raghu           ENG                    150 10-DEC-84      45000      15000     03-DEC-08                                                                                                     
+       101 Ravi            MGR                    111 10-OCT-95      32000       5000 D1  02-OCT-06                                                                                                     
+       106 Nishan          A_MGR                  111 02-OCT-86      50000       5000 D2  24-NOV-95                                                                                                     
+       102 Raviraj         ENG                    106 10-JAN-85      24000       6000 D1  12-NOV-10                                                                                                     
+       103 Kishan          DEV                    111 10-DEC-80      44000       4000 D1  22-SEP-01                                                                                                     
+       105 Varun           CLK                    111 02-AUG-80      21000       2000 D1  12-OCT-02                                                                                                     
+       125 Manu            DEV                    150 10-DEC-80      29000       4000 D4  12-OCT-02                                                                                                     
+       104 Vikas           CLK                    125 02-OCT-80      25000       3000 D2  26-NOV-05                                                                                                     
+       123 Mahesh          CLK                    150 10-DEC-84      25000       3000 D3  23-DEC-08                                                                                                     
+       108 Suresh          DEV                    106 10-NOV-80      45000       5000 D3  02-OCT-05                                                                                                     
+
+     EMPNO ENAME           JOB                  MGRID DATEOFBIR     SALARY       COMM DEP DATEJOIN  PRO                                                                                                 
+---------- --------------- --------------- ---------- --------- ---------- ---------- --- --------- ---                                                                                                 
+       109 Vignesh         DEV                    111 10-JUL-80      45000       5000 D1  26-JAN-99                                                                                                     
+       110 Harish          CLK                    106 10-JAN-85      28000       5000 D5  10-DEC-07                                                                                                     
+       112 Prathith        DEV                    150 20-JAN-95      60000       4000 D1  10-DEC-05                                                                                                     
+       113 Tanishk         DEV                    150 15-JAN-85      50000       5000 D5  15-JAN-09                                                                                                     
+
+15 rows selected.
+
+SQL> desc proj;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ DNO                                                                                                               NOT NULL CHAR(3)
+ PROJNO                                                                                                            NOT NULL CHAR(3)
+ PROJNAME                                                                                                          NOT NULL VARCHAR2(20)
+ PROJCREDIT                                                                                                                 NUMBER(2)
+ STARTDATE                                                                                                         NOT NULL DATE
+ ENDDATE                                                                                                                    DATE
+ PROJ_FUND                                                                                                                  NUMBER(7)
+
+SQL> insert into proj values('D1','P1','Payroll Automation','4','01-jan-2022','30-jun-2022',500000);
+insert into proj values('D1','P1','Payroll Automation','4','01-jan-2022','30-jun-2022',500000)
+*
+ERROR at line 1:
+ORA-02290: check constraint (MCA020.PROJECTNO) violated 
+
+
+SQL> insert into proj values('D1','P1','Payroll Automation','4','01-jan-2022','30-jun-2022',500000);
+insert into proj values('D1','P1','Payroll Automation','4','01-jan-2022','30-jun-2022',500000)
+*
+ERROR at line 1:
+ORA-02290: check constraint (MCA020.PROJECTNO) violated 
+
+
+SQL> insert into proj values('D1','p1','Payroll Automation','4','01-jan-2022','30-jun-2022',500000);
+
+1 row created.
+
+SQL> insert into proj values('D2','p1','AI Research Platfom','7','15-feb-2022','14-feb-2023',900000);
+
+1 row created.
+
+SQL> insert into proj values('D3','p2','Data Warehouse MIGR','8','01-mar-2022','31-aug-2022',650000);
+
+1 row created.
+
+SQL> insert into proj values('D4','p3','CRM Rvamp','5','10-apr-2022','09-oct-2022',400000);
+
+1 row created.
+
+SQL> insert into proj values('D1','p3','ERP Revamp','9','11-jan-2020','12-dec-2021',500000);
+
+1 row created.
+
+SQL> select * from proj;
+
+DNO PRO PROJNAME             PROJCREDIT STARTDATE ENDDATE    PROJ_FUND                                                                                                                                  
+--- --- -------------------- ---------- --------- --------- ----------                                                                                                                                  
+D1  p1  Payroll Automation            4 01-JAN-22 30-JUN-22     500000                                                                                                                                  
+D2  p1  AI Research Platfom           7 15-FEB-22 14-FEB-23     900000                                                                                                                                  
+D3  p2  Data Warehouse MIGR           8 01-MAR-22 31-AUG-22     650000                                                                                                                                  
+D4  p3  CRM Rvamp                     5 10-APR-22 09-OCT-22     400000                                                                                                                                  
+D1  p3  ERP Revamp                    9 11-JAN-20 12-DEC-21     500000                                                                                                                                  
+
+SQL> commit;
+
+Commit complete.
+
+SQL> update proj set projname="CRM Revap" where projcredit='5';
+update proj set projname="CRM Revap" where projcredit='5'
+                         *
+ERROR at line 1:
+ORA-00904: "CRM Revap": invalid identifier 
+
+
+SQL> update proj set projname='CRM Revap' where projcredit='5';
+
+1 row updated.
+
+SQL> select * from proj;
+
+DNO PRO PROJNAME             PROJCREDIT STARTDATE ENDDATE    PROJ_FUND                                                                                                                                  
+--- --- -------------------- ---------- --------- --------- ----------                                                                                                                                  
+D1  p1  Payroll Automation            4 01-JAN-22 30-JUN-22     500000                                                                                                                                  
+D2  p1  AI Research Platfom           7 15-FEB-22 14-FEB-23     900000                                                                                                                                  
+D3  p2  Data Warehouse MIGR           8 01-MAR-22 31-AUG-22     650000                                                                                                                                  
+D4  p3  CRM Revap                     5 10-APR-22 09-OCT-22     400000                                                                                                                                  
+D1  p3  ERP Revamp                    9 11-JAN-20 12-DEC-21     500000                                                                                                                                  
+
+SQL> update proj set projname="CRM Revamp" where projcredit='5';
+update proj set projname="CRM Revamp" where projcredit='5'
+                         *
+ERROR at line 1:
+ORA-00904: "CRM Revamp": invalid identifier 
+
+
+SQL> update proj set projname='CRM Revamp' where projcredit='5';
+
+1 row updated.
+
+SQL> select * from proj;
+
+DNO PRO PROJNAME             PROJCREDIT STARTDATE ENDDATE    PROJ_FUND                                                                                                                                  
+--- --- -------------------- ---------- --------- --------- ----------                                                                                                                                  
+D1  p1  Payroll Automation            4 01-JAN-22 30-JUN-22     500000                                                                                                                                  
+D2  p1  AI Research Platfom           7 15-FEB-22 14-FEB-23     900000                                                                                                                                  
+D3  p2  Data Warehouse MIGR           8 01-MAR-22 31-AUG-22     650000                                                                                                                                  
+D4  p3  CRM Revamp                    5 10-APR-22 09-OCT-22     400000                                                                                                                                  
+D1  p3  ERP Revamp                    9 11-JAN-20 12-DEC-21     500000                                                                                                                                  
+
+SQL> commit;
+
+Commit complete.
+
+SQL> update emp set projid='p1' where empno='101';
+
+1 row updated.
+
+SQL> select * from emp;
+
+     EMPNO ENAME           JOB                  MGRID DATEOFBIR     SALARY       COMM DEP DATEJOIN  PRO                                                                                                 
+---------- --------------- --------------- ---------- --------- ---------- ---------- --- --------- ---                                                                                                 
+       150 Adithya         CEO                        10-DEC-90      60000      30000     03-DEC-08                                                                                                     
+       111 Raghu           ENG                    150 10-DEC-84      45000      15000     03-DEC-08                                                                                                     
+       101 Ravi            MGR                    111 10-OCT-95      32000       5000 D1  02-OCT-06 p1                                                                                                  
+       106 Nishan          A_MGR                  111 02-OCT-86      50000       5000 D2  24-NOV-95                                                                                                     
+       102 Raviraj         ENG                    106 10-JAN-85      24000       6000 D1  12-NOV-10                                                                                                     
+       103 Kishan          DEV                    111 10-DEC-80      44000       4000 D1  22-SEP-01                                                                                                     
+       105 Varun           CLK                    111 02-AUG-80      21000       2000 D1  12-OCT-02                                                                                                     
+       125 Manu            DEV                    150 10-DEC-80      29000       4000 D4  12-OCT-02                                                                                                     
+       104 Vikas           CLK                    125 02-OCT-80      25000       3000 D2  26-NOV-05                                                                                                     
+       123 Mahesh          CLK                    150 10-DEC-84      25000       3000 D3  23-DEC-08                                                                                                     
+       108 Suresh          DEV                    106 10-NOV-80      45000       5000 D3  02-OCT-05                                                                                                     
+
+     EMPNO ENAME           JOB                  MGRID DATEOFBIR     SALARY       COMM DEP DATEJOIN  PRO                                                                                                 
+---------- --------------- --------------- ---------- --------- ---------- ---------- --- --------- ---                                                                                                 
+       109 Vignesh         DEV                    111 10-JUL-80      45000       5000 D1  26-JAN-99                                                                                                     
+       110 Harish          CLK                    106 10-JAN-85      28000       5000 D5  10-DEC-07                                                                                                     
+       112 Prathith        DEV                    150 20-JAN-95      60000       4000 D1  10-DEC-05                                                                                                     
+       113 Tanishk         DEV                    150 15-JAN-85      50000       5000 D5  15-JAN-09                                                                                                     
+
+15 rows selected.
+
+SQL> update emp set projid='p3' where empno='102';
+
+1 row updated.
+
+SQL> update emp set projid='p1' where empno='103';
+
+1 row updated.
+
+SQL> update emp set projid='p1' where empno='101';
+
+1 row updated.
+
+SQL> update emp set projid='p1' where empno='103';
+
+1 row updated.
+
+SQL> update emp set projid='p3' where empno='105';
+
+1 row updated.
+
+SQL> update emp set projid='p3' where empno='125';
+
+1 row updated.
+
+SQL> update emp set projid='p1' where empno='104';
+
+1 row updated.
+
+SQL> update emp set projid='p2' where empno='106';
+update emp set projid='p2' where empno='106'
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (MCA020.SYS_C0034534) violated - parent key not found 
+
+
+SQL> update emp set projid='p1' where empno='106';
+
+1 row updated.
+
+SQL> update emp set projid='p2' where empno='123';
+
+1 row updated.
+
+SQL> update emp set projid='p1' where empno='108';
+update emp set projid='p1' where empno='108'
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (MCA020.SYS_C0034534) violated - parent key not found 
+
+
+SQL> update emp set projid='p2' where empno='108';
+
+1 row updated.
+
+SQL> update emp set projid='p3' where empno='103';
+
+1 row updated.
+
+SQL> update emp set projid='p3' where empno='110';
+update emp set projid='p3' where empno='110'
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (MCA020.SYS_C0034534) violated - parent key not found 
+
+
+SQL> update emp set projid='p5' where empno='110';
+update emp set projid='p5' where empno='110'
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (MCA020.SYS_C0034534) violated - parent key not found 
+
+
+SQL> update emp set projid='p4' where empno='110';
+update emp set projid='p4' where empno='110'
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (MCA020.SYS_C0034534) violated - parent key not found 
+
+
+SQL> update emp set projid='p2' where empno='110';
+update emp set projid='p2' where empno='110'
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (MCA020.SYS_C0034534) violated - parent key not found 
+
+
+SQL> update emp set projid='p1' where empno='110';
+update emp set projid='p1' where empno='110'
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (MCA020.SYS_C0034534) violated - parent key not found 
+
+
+SQL> select * from emp;
+
+     EMPNO ENAME           JOB                  MGRID DATEOFBIR     SALARY       COMM DEP DATEJOIN  PRO                                                                                                 
+---------- --------------- --------------- ---------- --------- ---------- ---------- --- --------- ---                                                                                                 
+       150 Adithya         CEO                        10-DEC-90      60000      30000     03-DEC-08                                                                                                     
+       111 Raghu           ENG                    150 10-DEC-84      45000      15000     03-DEC-08                                                                                                     
+       101 Ravi            MGR                    111 10-OCT-95      32000       5000 D1  02-OCT-06 p1                                                                                                  
+       106 Nishan          A_MGR                  111 02-OCT-86      50000       5000 D2  24-NOV-95 p1                                                                                                  
+       102 Raviraj         ENG                    106 10-JAN-85      24000       6000 D1  12-NOV-10 p3                                                                                                  
+       103 Kishan          DEV                    111 10-DEC-80      44000       4000 D1  22-SEP-01 p3                                                                                                  
+       105 Varun           CLK                    111 02-AUG-80      21000       2000 D1  12-OCT-02 p3                                                                                                  
+       125 Manu            DEV                    150 10-DEC-80      29000       4000 D4  12-OCT-02 p3                                                                                                  
+       104 Vikas           CLK                    125 02-OCT-80      25000       3000 D2  26-NOV-05 p1                                                                                                  
+       123 Mahesh          CLK                    150 10-DEC-84      25000       3000 D3  23-DEC-08 p2                                                                                                  
+       108 Suresh          DEV                    106 10-NOV-80      45000       5000 D3  02-OCT-05 p2                                                                                                  
+
+     EMPNO ENAME           JOB                  MGRID DATEOFBIR     SALARY       COMM DEP DATEJOIN  PRO                                                                                                 
+---------- --------------- --------------- ---------- --------- ---------- ---------- --- --------- ---                                                                                                 
+       109 Vignesh         DEV                    111 10-JUL-80      45000       5000 D1  26-JAN-99                                                                                                     
+       110 Harish          CLK                    106 10-JAN-85      28000       5000 D5  10-DEC-07                                                                                                     
+       112 Prathith        DEV                    150 20-JAN-95      60000       4000 D1  10-DEC-05                                                                                                     
+       113 Tanishk         DEV                    150 15-JAN-85      50000       5000 D5  15-JAN-09                                                                                                     
+
+15 rows selected.
+
+SQL> update emp set projid='p1' where empno='110';
+update emp set projid='p1' where empno='110'
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (MCA020.SYS_C0034534) violated - parent key not found 
+
+
+SQL> update emp set projid='p2' where empno='110';
+update emp set projid='p2' where empno='110'
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (MCA020.SYS_C0034534) violated - parent key not found 
+
+
+SQL> update emp set projid='p3' where empno='110';
+update emp set projid='p3' where empno='110'
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (MCA020.SYS_C0034534) violated - parent key not found 
+
+
+SQL> update emp set projid='p4' where empno='110';
+update emp set projid='p4' where empno='110'
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (MCA020.SYS_C0034534) violated - parent key not found 
+
+
+SQL> commit;
+
+Commit complete.
+
+SQL> spool off;
