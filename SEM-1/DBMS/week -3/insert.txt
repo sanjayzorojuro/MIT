@@ -12,7 +12,7 @@ insert into dept(dno,dname,location,dept_budget)values(null,'Corporate','HYB',70
 
 
 
-
+  
 
 insert into emp values(100,'Ravi','MGR',111,'10-oct-1995',32000,5000,'D1','2-oct-2006','P1');
 //emp no check constraint violated empno should b greater than 100
