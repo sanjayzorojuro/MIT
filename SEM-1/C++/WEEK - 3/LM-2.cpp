@@ -1,3 +1,5 @@
+//program to check if the string is palindrome or not using function.
+
 #include <iostream>
 using namespace std;
 #include<algorithm>
