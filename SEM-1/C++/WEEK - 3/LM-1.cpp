@@ -1,3 +1,4 @@
+//check for cube of a number using inline function.
 #include <iostream>
 using namespace std;
 
