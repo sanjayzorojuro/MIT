@@ -1,4 +1,4 @@
-
+//program to reverse a integer and double that number.
 #include<algorithm>
 #include <iostream>
 using namespace std;
