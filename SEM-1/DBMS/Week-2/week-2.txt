@@ -20,4 +20,3 @@ alter table emp add foreign key(deptno,projid)references proj(dno,projno);
 
 8. alter table emp add (bonus number(8,2)default '0');
 
-9.
