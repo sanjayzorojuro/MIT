@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>W3C Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
+
+        .container {
+            width: 75%;
+            background-color: #ebebeb;
+            margin-left: 12.5%;
+            box-sizing: border-box;
+            border: 1px dashed rgb(177, 177, 177);
+        }
+
+        header nav {
+            width: 100%;
+            background-color: #afafaf;
+            padding: 5px 0px 5px;
+            color: white;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .line {
+            background-color: black;
+            width: 100%;
+            height: 3px;
+        }
+
+        .innercontainer {
+            width: 100%;
+            font-size: 20px;
+        }
+
+        .about {
+            padding: 5px;
+            width: 100%;
+            box-sizing: border-box;
+
+        }
+
+        .sideheading {
+            width: 40%;
+            text-align: left;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+
+        }
+
+        .history {
+            padding: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .image {
+            margin-top: 10px;
+
+        }
+
+        .section {
+            display: flex;
+            font-size: 18px;
+        }
+
+        .section p {
+            margin: 10px 0px 0px 15px;
+        }
+
+        .section p a {
+            text-decoration: none;
+            color: black;
+            border: 1px solid black;
+            border-radius: 16px;
+            font-size: 10px;
+            background-color: #afafaf;
+            margin: 0px 10px 0px;
+            padding: 3px 5px 3px;
+        }
+
+        .imp ul {
+            margin: 10px 0px 0px 20px;
+        }
+
+
+        .imp h5 {
+            margin-top: 5px;
+        }
+
+        .scrollup a {
+            text-decoration: none;
+            color: black;
+            border: 1px solid black;
+            border-radius: 16px;
+            font-size: 10px;
+            background-color: #afafaf;
+            margin: 10px 0px 10px 0px;
+            padding: 3px 5px 3px;
+            width: 10%;
+
+        }
+
+        .scrollup {
+            padding: 5px;
+            text-align: right;
+        }
+        .table{
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0px 5px 0px;
+            
+        }
+        .table a{
+            text-decoration: none;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <h1>World Wide Web Consortium (W3C)</h1>
+            </nav>
+        </header>
+
+        <div class="table">
+            <a href="#about">About</a>
+            <a href="#history">History</a>
+            <a href="#timber">Timber</a>
+            <a href="#impp">Importance</a>
+        </div>
+        <main>
+            <div class="line"></div>
+            <div class="innercontainer">
+                <div class="about" id="about">
+                    <h2 class="sideheading">About W3C:</h2>
+                    <p> The World Wide Web Consortium (W3C) is an international organization that develops standards
+                        for the World Wide Web. Its goal is to make the web open, accessible, and easy to use for
+                        everyone.W3C creates guidelines and lorem100standards that help websites work consistently
+                        across
+                        different browsers, devices, and platforms. It is involved with technologies such as HTML, CSS,
+                        XML, and web accessibility standards.
+
+                    </p>
+
+                </div>
+
+                <div class="history"  id="history">
+                    <h3 class="sideheading">History:</h3>
+                    <p>The World Wide Web was invented by Tim Berners-Lee while he was working at CERN in Switzerland.
+                        In 1989, he proposed a system for sharing information using hypertext.
+                        By 1991, the first website was available, and the web began to grow rapidly. As more people and
+                        organizations started using the web, there was a need for common standards.
+                        In October 1994, Tim Berners-Lee founded the W3C at MIT, with support from CERN and DARPA. W3C
+                        was created to develop standards and ensure that the web remained open and compatible.
+                        Today, W3C continues to develop standards and guidelines that shape how the modern web works.
+
+                    </p>
+                </div>
+ 
+                <div class="timber" id="timber">
+                    <h3>Tim Berners-Lee — Inventor of the Web</h3>
+                    <div class="section">
+                        <div class="image"><img src="timber.jpg" alt=""></div>
+                        <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Tim Berners-Lee is a British computer
+                            scientist and the inventor of the World Wide Web. In
+                            1989, while working at CERN, he proposed a system that allowed information to be shared
+                            through interconnected documents. <br>
+                            He developed the key technologies behind the web, including HTML, HTTP, and URLs. In 1994,
+                            he founded the World Wide Web Consortium (W3C) to help develop common standards for the web.
+
+                            <a href="timber.html">Read more</a>
+
+                        </p>
+                    </div>
+                </div>
+
+                <div class="imp" id="impp">
+                    <h4>Importance of W3C</h4>
+                    <div class="list">
+                        <h5>W3C helps ensure that the web remains:</h5>
+                        <ul>
+                            <li><strong>Open:</strong> available to everyone.</li>
+                            <li><strong>Accessible:</strong> usable by people with disabilities.</li>
+                            <li><strong>Interoperable:</strong> works across different browsers and devices.</li>
+                            <li><strong>International:</strong> supports users around the world.</li>
+                        </ul>
+
+                    </div>
+                </div>
+
+
+                <div class="scrollup">
+                    <a href="index.html">Scroll up</a>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+</body>
+
+</html>
