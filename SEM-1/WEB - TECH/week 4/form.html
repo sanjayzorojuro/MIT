@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Html-Form</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .container {
+            width: calc(90% - 4px);
+            padding: 2px;
+            box-sizing: border-box;
+            margin-left: 50px;
+        }
+
+        .heading {
+            border: 1px solid white;
+            background: linear-gradient(to bottom, rgb(209, 208, 208), rgb(255, 255, 255));
+            color: rgba(75, 168, 255, 0.911);
+            font-size: 12px;
+            padding: 2px;
+
+        }
+
+        .info {
+            box-sizing: border-box;
+            margin: 10px 0px 0px 5px;
+        }
+
+        .list {
+            position: relative;
+            left: 5%;
+            margin-top: 5px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        form {
+            margin-top: 20px;
+            padding: 3px;
+            box-sizing: border-box;
+        }
+
+        .rows {
+            display: flex;
+
+        }
+
+        .innerrows {
+            padding: 5px;
+            width: 300px;
+            margin-bottom: 2px;
+            font-size: 14px;
+        }
+
+        .star {
+            color: red;
+        }
+
+        .line {
+            background-color: black;
+            height: 1px;
+            width: 100%;
+        }
+
+        button {
+            padding: 3px 5px 3px;
+            margin: 3px;
+            color: white;
+            background-color: rgba(24, 118, 206, 0.911);
+            border: none;
+        }
+
+        .buttons {
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        fieldset {
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="heading">
+            <h1>User Registration</h1>
+        </div>
+
+        <div class="info">
+            <p> <span>Important information :</span> Passport application can be processed at any <br>
+                PSK/POPSL/PSLK WITHIN INDIA irrespective of your residential address.</p>
+
+            <p>
+
+            <ul class="list">
+                <li>
+                    <a href="">Click here</a> To check the appointment at the PSK/POPSL/PSLK.
+                </li>
+                <li>
+                    <a href="">Click here</a> To know more about apply anywhere in India scheme for passport services.
+                </li>
+            </ul>
+            </p>
+
+        </div>
+
+        <fieldset>
+            <legend>Register</legend>
+            <form action="">
+
+                <div class="rows">
+                    <div class="innerrows"> <label for="apply"> Register to apply at <span class="star">*</span></label>
+                    </div>
+                    <div class="innerrows">
+                        <input type="radio" name="apply" id="cvp" tabindex="1" ><label for="cvp">CPV Delhi</label> <br>
+                        <input type="radio" name="apply" id="pass"><label for="pass">Passport office</label>
+
+                    </div>
+
+                </div>
+                <div class="rows">
+                    <div class="innerrows">
+                        <label for="office">Passport Office <span class="star">*</span></label>
+
+                    </div>
+                    <div class="innerrows">
+                        <select name="office" id="office" autofocus>
+                            <option value="" disabled selected  required >-------Select-------</option>
+                        </select>
+
+                    </div>
+                </div>
+                <div class="rows">
+                    <div class="innerrows">
+                        <label for="name">Given name <span class="star">*</span></label>
+                    </div>
+                    <div class="innerrows">
+                        <input type="text" name="name" id="name" tabindex="2" required>
+                    </div>
+                </div>
+                <div class="rows">
+                    <div class="innerrows">
+                        <label for="surname">surname</label>
+                    </div>
+                    <div class="innerrows">
+                        <input type="text" name="surname" id="surname" tabindex="3">
+                    </div>
+                </div>
+                <div class="rows">
+                    <div class="innerrows">
+                        <label for="dob">Date of Birth <span class="star">*</span></label>
+                    </div>
+                    <div class="innerrows">
+                        <input type="date" name="dob" id="dob" tabindex="4" required>
+                    </div>
+                </div>
+                <div class="rows">
+                    <div class="innerrows">
+                        <label for="email">E-mail id <span class="star">*</span></label>
+                    </div>
+                    <div class="innerrows">
+                        <input type="email" name="email" id="email" tabindex="5" required>
+                    </div>
+                </div>
+                <div class="rows">
+                    <div class="innerrows">
+                        <label for="loginradio">Do you want your login id to be the same as your E-mail id?</label>
+                    </div>
+                    <div class="innerrows">
+                        <input type="radio" name="loginradio" id="yes" required tabindex="6"> <label for="yes">Yes</label><br>
+                        <input type="radio" name="loginradio" id="no" required> <label for="no">No</label>
+                    </div>
+                </div>
+                <div class="rows">
+                    <div class="innerrows">
+                        <label for="loginid">Login id <span class="star">*</span></label>
+                    </div>
+                    <div class="innerrows">
+                        <input type="text" name="loginid" id="loginid" tabindex="7" required><span> <a href="">Check
+                                Availability</a></span>
+                    </div>
+                </div>
+                <div class="rows">
+                    <div class="innerrows">
+                        <label for="password">Password <span class="star">*</span></label>
+                    </div>
+                    <div class="innerrows">
+                        <input type="password" name="password" id="password" tabindex="8" required><span><a href="">
+                                Password
+                                Policy</a></span>
+                    </div>
+                </div>
+                <div class="rows">
+                    <div class="innerrows">
+                        <label for="confirmpass">Confirm Password <span class="star">*</span></label>
+                    </div>
+                    <div class="innerrows">
+                        <input type="password" name="confirmpass" id="confirmpass" tabindex="9" required>
+                    </div>
+                </div>
+                <div class="rows">
+                    <div class="innerrows">
+                        <label for="hintques">Hint Questions <span class="star">*</span></label>
+                    </div>
+                    <div class="innerrows">
+                        <select name="hintques" id="hintques" required>
+                            <option value="" selected disabled> -------Select-------</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="rows">
+                    <div class="innerrows">
+                        <label for="hintans">Hint Answer <span class="star">*</span></label>
+                    </div>
+                    <div class="innerrows">
+                        <input type="text" name="hintans" id="hintans" tabindex="10" required>
+                    </div>
+                </div>
+                <div class="rows">
+                    <div class="innerrows">
+                        <label for="capta">Enter Characters Displayed <span class="star">*</span></label>
+                    </div>
+                    <div class="innerrows">
+                        <input type="text" id="capta" tabindex="11" required>
+                    </div>
+                </div>
+
+                <div class="line"></div>
+
+                <div class="buttons">
+                    <button tabindex="12">Register</button><button tabindex="13">Clear</button>
+                </div>
+
+            </form>
+
+
+        </fieldset>
+
+    </div>
+
+</body>
+
+</html>
+<!-- access key: used for shortcut keys -->
+<!-- tab index : used for faster input while entering form -->
+<!-- documentation based on what unique i have done  -->
