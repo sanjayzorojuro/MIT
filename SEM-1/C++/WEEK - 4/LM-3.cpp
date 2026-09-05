@@ -75,7 +75,9 @@ class player{
 			for(int i=0;i<n;i++){
 				cout<<plist[i].display();
 			}		
+		
 		}
+	}
 	};
 	
 int main(){
@@ -128,7 +130,7 @@ int main(){
 					if(!found){
 						cout<<"Player not found.'";
 					}
-					break;
+					break;}
 				case 3:{
 					if(n == 0){
 						cout<<"please neter player first.";
@@ -154,7 +156,7 @@ int main(){
 			}
 		}
 	return 0;
-}
+	}
 
 					
 					
