@@ -1,0 +1,1 @@
+Alter table commands which chages some basic schema of the tables.

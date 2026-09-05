@@ -1,0 +1,1 @@
+Insertion of the records into the table.
