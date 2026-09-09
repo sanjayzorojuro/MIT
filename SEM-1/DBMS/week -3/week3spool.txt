@@ -773,3 +773,629 @@ SQL> commit;
 Commit complete.
 
 SQL> spool off;
+SQL> update emp set projid='p3' where empno='109';
+
+1 row updated.
+
+SQL> select * from emp;
+
+     EMPNO ENAME           JOB                  MGRID DATEOFBIR     SALARY       COMM DEP DATEJOIN  PRO                                                                                                 
+---------- --------------- --------------- ---------- --------- ---------- ---------- --- --------- ---                                                                                                 
+       150 Adithya         CEO                        10-DEC-90      60000      30000     03-DEC-08                                                                                                     
+       111 Raghu           ENG                    150 10-DEC-84      45000      15000     03-DEC-08                                                                                                     
+       101 Ravi            MGR                    111 10-OCT-95      32000       5000 D1  02-OCT-06 p1                                                                                                  
+       106 Nishan          A_MGR                  111 02-OCT-86      50000       5000 D2  24-NOV-95 p1                                                                                                  
+       102 Raviraj         ENG                    106 10-JAN-85      24000       6000 D1  12-NOV-10 p3                                                                                                  
+       103 Kishan          DEV                    111 10-DEC-80      44000       4000 D1  22-SEP-01 p3                                                                                                  
+       105 Varun           CLK                    111 02-AUG-80      21000       2000 D1  12-OCT-02 p3                                                                                                  
+       125 Manu            DEV                    150 10-DEC-80      29000       4000 D4  12-OCT-02 p3                                                                                                  
+       104 Vikas           CLK                    125 02-OCT-80      25000       3000 D2  26-NOV-05 p1                                                                                                  
+       123 Mahesh          CLK                    150 10-DEC-84      25000       3000 D3  23-DEC-08 p2                                                                                                  
+       108 Suresh          DEV                    106 10-NOV-80      45000       5000 D3  02-OCT-05 p2                                                                                                  
+
+     EMPNO ENAME           JOB                  MGRID DATEOFBIR     SALARY       COMM DEP DATEJOIN  PRO                                                                                                 
+---------- --------------- --------------- ---------- --------- ---------- ---------- --- --------- ---                                                                                                 
+       109 Vignesh         DEV                    111 10-JUL-80      45000       5000 D1  26-JAN-99 p3                                                                                                  
+       110 Harish          CLK                    106 10-JAN-85      28000       5000 D5  10-DEC-07                                                                                                     
+       112 Prathith        DEV                    150 20-JAN-95      60000       4000 D1  10-DEC-05                                                                                                     
+       113 Tanishk         DEV                    150 15-JAN-85      50000       5000 D5  15-JAN-09                                                                                                     
+
+15 rows selected.
+
+SQL> update emp set projid='p1' where empno='110';
+update emp set projid='p1' where empno='110'
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (MCA020.SYS_C0034534) violated - parent key not found 
+
+
+SQL> update emp set projid='p1' where empno='112';
+
+1 row updated.
+
+SQL> update emp set projid='p3' where empno='113';
+update emp set projid='p3' where empno='113'
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (MCA020.SYS_C0034534) violated - parent key not found 
+
+
+SQL> update emp set projid='p2' where empno='113';
+update emp set projid='p2' where empno='113'
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (MCA020.SYS_C0034534) violated - parent key not found 
+
+
+SQL> update emp set projid='p1' where empno='113';
+update emp set projid='p1' where empno='113'
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (MCA020.SYS_C0034534) violated - parent key not found 
+
+
+SQL> selet * from emp;
+SP2-0734: unknown command beginning "selet * fr..." - rest of line ignored.
+SQL> select * from emp;
+
+     EMPNO ENAME           JOB                  MGRID DATEOFBIR     SALARY       COMM DEP DATEJOIN  PRO                                                                                                 
+---------- --------------- --------------- ---------- --------- ---------- ---------- --- --------- ---                                                                                                 
+       150 Adithya         CEO                        10-DEC-90      60000      30000     03-DEC-08                                                                                                     
+       111 Raghu           ENG                    150 10-DEC-84      45000      15000     03-DEC-08                                                                                                     
+       101 Ravi            MGR                    111 10-OCT-95      32000       5000 D1  02-OCT-06 p1                                                                                                  
+       106 Nishan          A_MGR                  111 02-OCT-86      50000       5000 D2  24-NOV-95 p1                                                                                                  
+       102 Raviraj         ENG                    106 10-JAN-85      24000       6000 D1  12-NOV-10 p3                                                                                                  
+       103 Kishan          DEV                    111 10-DEC-80      44000       4000 D1  22-SEP-01 p3                                                                                                  
+       105 Varun           CLK                    111 02-AUG-80      21000       2000 D1  12-OCT-02 p3                                                                                                  
+       125 Manu            DEV                    150 10-DEC-80      29000       4000 D4  12-OCT-02 p3                                                                                                  
+       104 Vikas           CLK                    125 02-OCT-80      25000       3000 D2  26-NOV-05 p1                                                                                                  
+       123 Mahesh          CLK                    150 10-DEC-84      25000       3000 D3  23-DEC-08 p2                                                                                                  
+       108 Suresh          DEV                    106 10-NOV-80      45000       5000 D3  02-OCT-05 p2                                                                                                  
+
+     EMPNO ENAME           JOB                  MGRID DATEOFBIR     SALARY       COMM DEP DATEJOIN  PRO                                                                                                 
+---------- --------------- --------------- ---------- --------- ---------- ---------- --- --------- ---                                                                                                 
+       109 Vignesh         DEV                    111 10-JUL-80      45000       5000 D1  26-JAN-99 p3                                                                                                  
+       110 Harish          CLK                    106 10-JAN-85      28000       5000 D5  10-DEC-07                                                                                                     
+       112 Prathith        DEV                    150 20-JAN-95      60000       4000 D1  10-DEC-05 p1                                                                                                  
+       113 Tanishk         DEV                    150 15-JAN-85      50000       5000 D5  15-JAN-09                                                                                                     
+
+15 rows selected.
+
+SQL> insert into task values('P1','D1',1,'Requirement analysis','01-jan-2022','15-jan-2022',Completed);
+insert into task values('P1','D1',1,'Requirement analysis','01-jan-2022','15-jan-2022',Completed)
+                                                                                       *
+ERROR at line 1:
+ORA-00984: column not allowed here 
+
+
+SQL> desc task;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ PROJID                                                                                                            NOT NULL CHAR(3)
+ DNO                                                                                                               NOT NULL CHAR(3)
+ TASKID                                                                                                            NOT NULL NUMBER(3)
+ TASKNAME                                                                                                          NOT NULL VARCHAR2(30)
+ STARTDATE                                                                                                         NOT NULL DATE
+ ENDDATE                                                                                                                    DATE
+ STATUS                                                                                                                     VARCHAR2(12)
+
+SQL> SET LINESIZE 200
+SQL> desc task;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ PROJID                                                                                                            NOT NULL CHAR(3)
+ DNO                                                                                                               NOT NULL CHAR(3)
+ TASKID                                                                                                            NOT NULL NUMBER(3)
+ TASKNAME                                                                                                          NOT NULL VARCHAR2(30)
+ STARTDATE                                                                                                         NOT NULL DATE
+ ENDDATE                                                                                                                    DATE
+ STATUS                                                                                                                     VARCHAR2(12)
+
+SQL> SET LINESIZE 250
+SQL> desc task;
+ Name                                                                                                                                            Null?    Type
+ ----------------------------------------------------------------------------------------------------------------------------------------------- -------- ------------------------------------------------------------------------------------------------
+ PROJID                                                                                                                                          NOT NULL CHAR(3)
+ DNO                                                                                                                                             NOT NULL CHAR(3)
+ TASKID                                                                                                                                          NOT NULL NUMBER(3)
+ TASKNAME                                                                                                                                        NOT NULL VARCHAR2(30)
+ STARTDATE                                                                                                                                       NOT NULL DATE
+ ENDDATE                                                                                                                                                  DATE
+ STATUS                                                                                                                                                   VARCHAR2(12)
+
+SQL> SET LINESIZE 150
+SQL> desc task;
+ Name                                                                                Null?    Type
+ ----------------------------------------------------------------------------------- -------- --------------------------------------------------------
+ PROJID                                                                              NOT NULL CHAR(3)
+ DNO                                                                                 NOT NULL CHAR(3)
+ TASKID                                                                              NOT NULL NUMBER(3)
+ TASKNAME                                                                            NOT NULL VARCHAR2(30)
+ STARTDATE                                                                           NOT NULL DATE
+ ENDDATE                                                                                      DATE
+ STATUS                                                                                       VARCHAR2(12)
+
+SQL> insert into task values('P1','D1',1,'Requirement analysis','01-jan-2022','15-jan-2022','Completed');
+insert into task values('P1','D1',1,'Requirement analysis','01-jan-2022','15-jan-2022','Completed')
+*
+ERROR at line 1:
+ORA-02290: check constraint (MCA020.SYS_C0034958) violated 
+
+
+SQL> insert into task values('p1','D1',1,'Requirement analysis','01-jan-2022','15-jan-2022','Completed');
+insert into task values('p1','D1',1,'Requirement analysis','01-jan-2022','15-jan-2022','Completed')
+*
+ERROR at line 1:
+ORA-02290: check constraint (MCA020.SYS_C0034958) violated 
+
+
+SQL> SELECT constraint_name, search_condition
+  2  FROM user_constraints
+  3  WHERE table_name = 'TASK';
+
+CONSTRAINT_NAME                                                                                                                                       
+--------------------------------------------------------------------------------------------------------------------------------                      
+SEARCH_CONDITION                                                                                                                                      
+--------------------------------------------------------------------------------                                                                      
+ADDFOREIGNKEY                                                                                                                                         
+                                                                                                                                                      
+                                                                                                                                                      
+SYS_C0034958                                                                                                                                          
+status in('PENDING','INPROGRESS','COMPLETED')                                                                                                         
+                                                                                                                                                      
+SYS_C0033007                                                                                                                                          
+"TASKNAME" IS NOT NULL                                                                                                                                
+                                                                                                                                                      
+
+CONSTRAINT_NAME                                                                                                                                       
+--------------------------------------------------------------------------------------------------------------------------------                      
+SEARCH_CONDITION                                                                                                                                      
+--------------------------------------------------------------------------------                                                                      
+SYS_C0033008                                                                                                                                          
+"STARTDATE" IS NOT NULL                                                                                                                               
+                                                                                                                                                      
+CHECKDATE                                                                                                                                             
+enddate>startdate                                                                                                                                     
+                                                                                                                                                      
+SYS_C0034986                                                                                                                                          
+                                                                                                                                                      
+                                                                                                                                                      
+
+6 rows selected.
+
+SQL> insert into task values('P1','D1',1,'Requirement analysis','01-jan-2022','15-jan-2022','COMPLETED');
+insert into task values('P1','D1',1,'Requirement analysis','01-jan-2022','15-jan-2022','COMPLETED')
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (MCA020.ADDFOREIGNKEY) violated - parent key not found 
+
+
+SQL> insert into task values('p1','D1',1,'Requirement analysis','01-jan-2022','15-jan-2022','COMPLETED');
+
+1 row created.
+
+SQL> insert into task values('p1','D2',2,'Module design','16-jan-2022','10-feb-2022','COMPLETED');
+
+1 row created.
+
+SQL> insert into task values('p2','D3',3,'Coding and testing','11-feb-2022',null,'INPROGRESS');
+
+1 row created.
+
+SQL> insert into task values('p3','D4',1,'Dataset Collection','15-feb-2022','28-feb-2022','COMPLETED');
+
+1 row created.
+
+SQL> insert into task values('p3','D1',2,'Model training','01-mar-2022',null,'INPROGRESS');
+
+1 row created.
+
+SQL> insert into task values('p3','D1',1,'Schema mapping','01-mar-2022','20-mar-2022','COMPLETED');
+
+1 row created.
+
+SQL> insert into task values('p4','D5',1,'Requirement gathering','10-apr-2022',null,'PENDING');
+insert into task values('p4','D5',1,'Requirement gathering','10-apr-2022',null,'PENDING')
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (MCA020.ADDFOREIGNKEY) violated - parent key not found 
+
+
+SQL> select * from proj;
+
+DNO PRO PROJNAME             PROJCREDIT STARTDATE ENDDATE    PROJ_FUND                                                                                
+--- --- -------------------- ---------- --------- --------- ----------                                                                                
+D1  p1  Payroll Automation            4 01-JAN-22 30-JUN-22     500000                                                                                
+D2  p1  AI Research Platfom           7 15-FEB-22 14-FEB-23     900000                                                                                
+D3  p2  Data Warehouse MIGR           8 01-MAR-22 31-AUG-22     650000                                                                                
+D4  p3  CRM Revamp                    5 10-APR-22 09-OCT-22     400000                                                                                
+D1  p3  ERP Revamp                    9 11-JAN-20 12-DEC-21     500000                                                                                
+
+SQL> insert into proj values('D5','p4','WareHouse Automation','10','01-jan-2022','30-jun-2022',500000);
+
+1 row created.
+
+SQL> insert into task values('p4','D5',1,'Requirement gathering','10-apr-2022',null,'PENDING');
+
+1 row created.
+
+SQL> insert into task values('p4','D5',2,'Site survey','05-may-2022','20-may-2022','COMPLETED');
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from department;
+
+no rows selected
+
+SQL> drop table department;
+
+Table dropped.
+
+SQL> create table dependent(
+  2  	depid number(2)primary key,
+  3  	empno number(3)references emp,
+  4  	departmentname varchar(20) not null,
+  5  	gender char(1)check(gender in('M','F')),
+  6  	dateofbirth date not null,
+  7  	relationship varchar(15)constraint checkrelationship check(relationship in('SPOUSE','CHILD','PARENT')),
+  8  	nompct number(5,2)constraint checkpct check(nompct between 0 and 100),
+  9  	medcover varchar2(3)DEFAULT 'NO'check(medcover in('YES','NO')) );
+
+Table created.
+
+SQL> insert into dependent values(1,100,'Latha Kumar','F',10-may-1982','SPOUSE',50,'YES');
+ERROR:
+ORA-01756: quoted string not properly terminated 
+
+
+SQL> insert into dependent values(1,100,'Latha Kumar','F','10-may-1982','SPOUSE',50,'YES');
+insert into dependent values(1,100,'Latha Kumar','F','10-may-1982','SPOUSE',50,'YES')
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (MCA020.SYS_C0041691) violated - parent key not found 
+
+
+SQL>  SELECT constraint_name, search_condition FROM user_constraints WHERE table_name = 'dependent';
+
+no rows selected
+
+SQL> insert into dependent values(1,101,'Latha Kumar','F','10-may-1982','SPOUSE',50,'YES');
+
+1 row created.
+
+SQL> insert into dependent values(2,101,'Arjun Kumar','M','19-jun-2000','CHILD',25,'YES');
+
+1 row created.
+
+SQL> insert into dependent values(3,102,'Seema Ravi','F','01-jan-1980','SPOUSE',60,'YES');
+
+1 row created.
+
+SQL> insert into dependent values(4,103,'Mohan Rao','M','12-dec-1950','PARENT',30,'NO');
+
+1 row created.
+
+SQL> insert into dependent values(6,108,'Rohan Meera','M','03-mar-2015','CHILD',100,'YES');
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> decs emp;
+SP2-0042: unknown command "decs emp" - rest of line ignored.
+SQL> desc emp;
+ Name                                                                                Null?    Type
+ ----------------------------------------------------------------------------------- -------- --------------------------------------------------------
+ EMPNO                                                                               NOT NULL NUMBER(3)
+ ENAME                                                                               NOT NULL VARCHAR2(15)
+ JOB                                                                                          VARCHAR2(15)
+ MGRID                                                                                        NUMBER(3)
+ DATEOFBIRTH                                                                                  DATE
+ SALARY                                                                                       NUMBER(10,2)
+ COMM                                                                                         NUMBER(10,2)
+ DEPTNO                                                                                       CHAR(3)
+ DATEJOIN                                                                                     DATE
+ PROJID                                                                                       CHAR(3)
+
+SQL> DELETE FROM emp
+  2  WHERE projid = 'p3';
+DELETE FROM emp
+*
+ERROR at line 1:
+ORA-02292: integrity constraint (MCA020.SYS_C0041691) violated - child record found 
+
+
+SQL> SELECT constraint_name, table_name, r_constraint_name
+  2  FROM user_constraints
+  3  WHERE constraint_name = 'SYS_C0041691';
+
+CONSTRAINT_NAME                                                                                                                                       
+--------------------------------------------------------------------------------------------------------------------------------                      
+TABLE_NAME                                                                                                                                            
+--------------------------------------------------------------------------------------------------------------------------------                      
+R_CONSTRAINT_NAME                                                                                                                                     
+--------------------------------------------------------------------------------------------------------------------------------                      
+SYS_C0041691                                                                                                                                          
+DEPENDENT                                                                                                                                             
+SYS_C0032639                                                                                                                                          
+                                                                                                                                                      
+
+SQL> SELECT empno, ename, projid
+  2  FROM emp
+  3  WHERE projid = 'p3';
+
+     EMPNO ENAME           PRO                                                                                                                        
+---------- --------------- ---                                                                                                                        
+       102 Raviraj         p3                                                                                                                         
+       103 Kishan          p3                                                                                                                         
+       105 Varun           p3                                                                                                                         
+       125 Manu            p3                                                                                                                         
+       109 Vignesh         p3                                                                                                                         
+
+SQL> SELECT *
+  2  FROM dependent
+  3  WHERE empno IN (
+  4      SELECT empno
+  5      FROM emp
+  6      WHERE projid = 'p3'
+  7  );
+
+     DEPID      EMPNO DEPARTMENTNAME       G DATEOFBIR RELATIONSHIP        NOMPCT MED                                                                 
+---------- ---------- -------------------- - --------- --------------- ---------- ---                                                                 
+         3        102 Seema Ravi           F 01-JAN-80 SPOUSE                  60 YES                                                                 
+         4        103 Mohan Rao            M 12-DEC-50 PARENT                  30 NO                                                                  
+
+SQL> desc dept;
+ Name                                                                                Null?    Type
+ ----------------------------------------------------------------------------------- -------- --------------------------------------------------------
+ DNO                                                                                          CHAR(3)
+ DNAME                                                                               NOT NULL VARCHAR2(15)
+ LOCATION                                                                                     CHAR(3)
+ DEPT_BUDGET                                                                                  NUMBER(7)
+
+SQL> select * from dept;
+
+DNO DNAME           LOC DEPT_BUDGET                                                                                                                   
+--- --------------- --- -----------                                                                                                                   
+D1  Marketing       CHN      500000                                                                                                                   
+D2  Research        MNG      300000                                                                                                                   
+D3  IT              BNG      400000                                                                                                                   
+D4  HR              BNG      200000                                                                                                                   
+D5  Accounts        BNG      500000                                                                                                                   
+    Corporate       HYB      700000                                                                                                                   
+D6  Sales           HYB      500000                                                                                                                   
+D7  Developer       BNG      900000                                                                                                                   
+
+8 rows selected.
+
+SQL> delete from dept where dname = 'Accounts';
+delete from dept where dname = 'Accounts'
+*
+ERROR at line 1:
+ORA-02292: integrity constraint (MCA020.FKDEPT) violated - child record found 
+
+
+SQL> delete from emp where empno= 25 and projid='p2';
+
+0 rows deleted.
+
+SQL> delete from emp where empno=125 and projid='p2';
+
+0 rows deleted.
+
+SQL> select * from emp;
+
+     EMPNO ENAME           JOB                  MGRID DATEOFBIR     SALARY       COMM DEP DATEJOIN  PRO                                               
+---------- --------------- --------------- ---------- --------- ---------- ---------- --- --------- ---                                               
+       150 Adithya         CEO                        10-DEC-90      60000      30000     03-DEC-08                                                   
+       111 Raghu           ENG                    150 10-DEC-84      45000      15000     03-DEC-08                                                   
+       101 Ravi            MGR                    111 10-OCT-95      32000       5000 D1  02-OCT-06 p1                                                
+       106 Nishan          A_MGR                  111 02-OCT-86      50000       5000 D2  24-NOV-95 p1                                                
+       102 Raviraj         ENG                    106 10-JAN-85      24000       6000 D1  12-NOV-10 p3                                                
+       103 Kishan          DEV                    111 10-DEC-80      44000       4000 D1  22-SEP-01 p3                                                
+       105 Varun           CLK                    111 02-AUG-80      21000       2000 D1  12-OCT-02 p3                                                
+       125 Manu            DEV                    150 10-DEC-80      29000       4000 D4  12-OCT-02 p3                                                
+       104 Vikas           CLK                    125 02-OCT-80      25000       3000 D2  26-NOV-05 p1                                                
+       123 Mahesh          CLK                    150 10-DEC-84      25000       3000 D3  23-DEC-08 p2                                                
+       108 Suresh          DEV                    106 10-NOV-80      45000       5000 D3  02-OCT-05 p2                                                
+
+     EMPNO ENAME           JOB                  MGRID DATEOFBIR     SALARY       COMM DEP DATEJOIN  PRO                                               
+---------- --------------- --------------- ---------- --------- ---------- ---------- --- --------- ---                                               
+       109 Vignesh         DEV                    111 10-JUL-80      45000       5000 D1  26-JAN-99 p3                                                
+       110 Harish          CLK                    106 10-JAN-85      28000       5000 D5  10-DEC-07                                                   
+       112 Prathith        DEV                    150 20-JAN-95      60000       4000 D1  10-DEC-05 p1                                                
+       113 Tanishk         DEV                    150 15-JAN-85      50000       5000 D5  15-JAN-09                                                   
+
+15 rows selected.
+
+SQL> select * from task;
+
+PRO DNO     TASKID TASKNAME                       STARTDATE ENDDATE   STATUS                                                                          
+--- --- ---------- ------------------------------ --------- --------- ------------                                                                    
+p1  D1           1 Requirement analysis           01-JAN-22 15-JAN-22 COMPLETED                                                                       
+p1  D2           2 Module design                  16-JAN-22 10-FEB-22 COMPLETED                                                                       
+p2  D3           3 Coding and testing             11-FEB-22           INPROGRESS                                                                      
+p3  D4           1 Dataset Collection             15-FEB-22 28-FEB-22 COMPLETED                                                                       
+p3  D1           2 Model training                 01-MAR-22           INPROGRESS                                                                      
+p3  D1           1 Schema mapping                 01-MAR-22 20-MAR-22 COMPLETED                                                                       
+p4  D5           1 Requirement gathering          10-APR-22           PENDING                                                                         
+p4  D5           2 Site survey                    05-MAY-22 20-MAY-22 COMPLETED                                                                       
+
+8 rows selected.
+
+SQL> delete from task where projid='p2';
+
+1 row deleted.
+
+SQL> select * from task;
+
+PRO DNO     TASKID TASKNAME                       STARTDATE ENDDATE   STATUS                                                                          
+--- --- ---------- ------------------------------ --------- --------- ------------                                                                    
+p1  D1           1 Requirement analysis           01-JAN-22 15-JAN-22 COMPLETED                                                                       
+p1  D2           2 Module design                  16-JAN-22 10-FEB-22 COMPLETED                                                                       
+p3  D4           1 Dataset Collection             15-FEB-22 28-FEB-22 COMPLETED                                                                       
+p3  D1           2 Model training                 01-MAR-22           INPROGRESS                                                                      
+p3  D1           1 Schema mapping                 01-MAR-22 20-MAR-22 COMPLETED                                                                       
+p4  D5           1 Requirement gathering          10-APR-22           PENDING                                                                         
+p4  D5           2 Site survey                    05-MAY-22 20-MAY-22 COMPLETED                                                                       
+
+7 rows selected.
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select * from task;
+
+PRO DNO     TASKID TASKNAME                       STARTDATE ENDDATE   STATUS                                                                          
+--- --- ---------- ------------------------------ --------- --------- ------------                                                                    
+p1  D1           1 Requirement analysis           01-JAN-22 15-JAN-22 COMPLETED                                                                       
+p1  D2           2 Module design                  16-JAN-22 10-FEB-22 COMPLETED                                                                       
+p2  D3           3 Coding and testing             11-FEB-22           INPROGRESS                                                                      
+p3  D4           1 Dataset Collection             15-FEB-22 28-FEB-22 COMPLETED                                                                       
+p3  D1           2 Model training                 01-MAR-22           INPROGRESS                                                                      
+p3  D1           1 Schema mapping                 01-MAR-22 20-MAR-22 COMPLETED                                                                       
+p4  D5           1 Requirement gathering          10-APR-22           PENDING                                                                         
+p4  D5           2 Site survey                    05-MAY-22 20-MAY-22 COMPLETED                                                                       
+
+8 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> delete from task where status='PENDING';
+
+1 row deleted.
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> pdate emp set job='MGR' where empno=123;
+SP2-0734: unknown command beginning "pdate emp ..." - rest of line ignored.
+SQL> update emp set job='MGR' where empno=123;
+
+1 row updated.
+
+SQL> update emp set job='MGR' salary=35000 mgrid=111 where empno=123;
+update emp set job='MGR' salary=35000 mgrid=111 where empno=123
+                         *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> update emp set job='MGR',salary=35000,mgrid=111 where empno=123;
+
+1 row updated.
+
+SQL> select * fro emp where empn0=123;
+select * fro emp where empn0=123
+         *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> select * from emp where empn0=123;
+select * from emp where empn0=123
+                        *
+ERROR at line 1:
+ORA-00904: "EMPN0": invalid identifier 
+
+
+SQL> select * from emp where empno=123;
+
+     EMPNO ENAME           JOB                  MGRID DATEOFBIR     SALARY       COMM DEP DATEJOIN  PRO                                               
+---------- --------------- --------------- ---------- --------- ---------- ---------- --- --------- ---                                               
+       123 Mahesh          MGR                    111 10-DEC-84      35000       3000 D3  23-DEC-08 p2                                                
+
+SQL> update emp set comm=10000 where jon='MGR';
+update emp set comm=10000 where jon='MGR'
+                                *
+ERROR at line 1:
+ORA-00904: "JON": invalid identifier 
+
+
+SQL> update emp set comm=10000 where job='MGR';
+
+2 rows updated.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from emp;
+
+     EMPNO ENAME           JOB                  MGRID DATEOFBIR     SALARY       COMM DEP DATEJOIN  PRO                                               
+---------- --------------- --------------- ---------- --------- ---------- ---------- --- --------- ---                                               
+       150 Adithya         CEO                        10-DEC-90      60000      30000     03-DEC-08                                                   
+       111 Raghu           ENG                    150 10-DEC-84      45000      15000     03-DEC-08                                                   
+       101 Ravi            MGR                    111 10-OCT-95      32000      10000 D1  02-OCT-06 p1                                                
+       106 Nishan          A_MGR                  111 02-OCT-86      50000       5000 D2  24-NOV-95 p1                                                
+       102 Raviraj         ENG                    106 10-JAN-85      24000       6000 D1  12-NOV-10 p3                                                
+       103 Kishan          DEV                    111 10-DEC-80      44000       4000 D1  22-SEP-01 p3                                                
+       105 Varun           CLK                    111 02-AUG-80      21000       2000 D1  12-OCT-02 p3                                                
+       125 Manu            DEV                    150 10-DEC-80      29000       4000 D4  12-OCT-02 p3                                                
+       104 Vikas           CLK                    125 02-OCT-80      25000       3000 D2  26-NOV-05 p1                                                
+       123 Mahesh          MGR                    111 10-DEC-84      35000      10000 D3  23-DEC-08 p2                                                
+       108 Suresh          DEV                    106 10-NOV-80      45000       5000 D3  02-OCT-05 p2                                                
+
+     EMPNO ENAME           JOB                  MGRID DATEOFBIR     SALARY       COMM DEP DATEJOIN  PRO                                               
+---------- --------------- --------------- ---------- --------- ---------- ---------- --- --------- ---                                               
+       109 Vignesh         DEV                    111 10-JUL-80      45000       5000 D1  26-JAN-99 p3                                                
+       110 Harish          CLK                    106 10-JAN-85      28000       5000 D5  10-DEC-07                                                   
+       112 Prathith        DEV                    150 20-JAN-95      60000       4000 D1  10-DEC-05 p1                                                
+       113 Tanishk         DEV                    150 15-JAN-85      50000       5000 D5  15-JAN-09                                                   
+
+15 rows selected.
+
+SQL> update emp set sal = sal*1.10 where jon='ENG';
+update emp set sal = sal*1.10 where jon='ENG'
+                                    *
+ERROR at line 1:
+ORA-00904: "JON": invalid identifier 
+
+
+SQL> update emp set sal = sal*1.10 where job='ENG';
+update emp set sal = sal*1.10 where job='ENG'
+                     *
+ERROR at line 1:
+ORA-00904: "SAL": invalid identifier 
+
+
+SQL> update emp set salary = salary*1.10 where job='ENG';
+
+2 rows updated.
+
+SQL> select * from emp;
+
+     EMPNO ENAME           JOB                  MGRID DATEOFBIR     SALARY       COMM DEP DATEJOIN  PRO                                               
+---------- --------------- --------------- ---------- --------- ---------- ---------- --- --------- ---                                               
+       150 Adithya         CEO                        10-DEC-90      60000      30000     03-DEC-08                                                   
+       111 Raghu           ENG                    150 10-DEC-84      49500      15000     03-DEC-08                                                   
+       101 Ravi            MGR                    111 10-OCT-95      32000      10000 D1  02-OCT-06 p1                                                
+       106 Nishan          A_MGR                  111 02-OCT-86      50000       5000 D2  24-NOV-95 p1                                                
+       102 Raviraj         ENG                    106 10-JAN-85      26400       6000 D1  12-NOV-10 p3                                                
+       103 Kishan          DEV                    111 10-DEC-80      44000       4000 D1  22-SEP-01 p3                                                
+       105 Varun           CLK                    111 02-AUG-80      21000       2000 D1  12-OCT-02 p3                                                
+       125 Manu            DEV                    150 10-DEC-80      29000       4000 D4  12-OCT-02 p3                                                
+       104 Vikas           CLK                    125 02-OCT-80      25000       3000 D2  26-NOV-05 p1                                                
+       123 Mahesh          MGR                    111 10-DEC-84      35000      10000 D3  23-DEC-08 p2                                                
+       108 Suresh          DEV                    106 10-NOV-80      45000       5000 D3  02-OCT-05 p2                                                
+
+     EMPNO ENAME           JOB                  MGRID DATEOFBIR     SALARY       COMM DEP DATEJOIN  PRO                                               
+---------- --------------- --------------- ---------- --------- ---------- ---------- --- --------- ---                                               
+       109 Vignesh         DEV                    111 10-JUL-80      45000       5000 D1  26-JAN-99 p3                                                
+       110 Harish          CLK                    106 10-JAN-85      28000       5000 D5  10-DEC-07                                                   
+       112 Prathith        DEV                    150 20-JAN-95      60000       4000 D1  10-DEC-05 p1                                                
+       113 Tanishk         DEV                    150 15-JAN-85      50000       5000 D5  15-JAN-09                                                   
+
+15 rows selected.
+
+SQL> spool off;

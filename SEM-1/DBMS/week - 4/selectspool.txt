@@ -1,0 +1,157 @@
+SQL> select * from emp where salary>25000 and dept='D1';
+select * from emp where salary>25000 and dept='D1'
+                                         *
+ERROR at line 1:
+ORA-00904: "DEPT": invalid identifier 
+
+
+SQL> select * from emp where salary>25000 and deptno='D1';
+
+     EMPNO ENAME           JOB                  MGRID DATEOFBIR     SALARY       COMM DEP DATEJOIN  PRO                                               
+---------- --------------- --------------- ---------- --------- ---------- ---------- --- --------- ---                                               
+       101 Ravi            MGR                    111 10-OCT-95      32000      10000 D1  02-OCT-06 p1                                                
+       102 Raviraj         ENG                    106 10-JAN-85      26400       6000 D1  12-NOV-10 p3                                                
+       103 Kishan          DEV                    111 10-DEC-80      44000       4000 D1  22-SEP-01 p3                                                
+       109 Vignesh         DEV                    111 10-JUL-80      45000       5000 D1  26-JAN-99 p3                                                
+       112 Prathith        DEV                    150 20-JAN-95      60000       4000 D1  10-DEC-05 p1                                                
+
+SQL> select ename EmployeeName , salary Salary from emp where salary>=25200 and salary<=35200;
+
+EMPLOYEENAME        SALARY                                                                                                                            
+--------------- ----------                                                                                                                            
+Ravi                 32000                                                                                                                            
+Raviraj              26400                                                                                                                            
+Manu                 29000                                                                                                                            
+Mahesh               35000                                                                                                                            
+Harish               28000                                                                                                                            
+
+SQL> select ename from employee where location in('BNG','MUB','HYD');
+select ename from employee where location in('BNG','MUB','HYD')
+                  *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select ename from emp where location in('BNG','MUB','HYD');
+select ename from emp where location in('BNG','MUB','HYD')
+                            *
+ERROR at line 1:
+ORA-00904: "LOCATION": invalid identifier 
+
+
+SQL> select ename from emp,dept where deptno=dno and location in('BNG','MUB','HYD');
+
+ENAME                                                                                                                                                 
+---------------                                                                                                                                       
+Manu                                                                                                                                                  
+Mahesh                                                                                                                                                
+Suresh                                                                                                                                                
+Harish                                                                                                                                                
+Tanishk                                                                                                                                               
+
+SQL> select * from emp;
+
+     EMPNO ENAME           JOB                  MGRID DATEOFBIR     SALARY       COMM DEP DATEJOIN  PRO                                               
+---------- --------------- --------------- ---------- --------- ---------- ---------- --- --------- ---                                               
+       150 Adithya         CEO                        10-DEC-90      60000      30000     03-DEC-08                                                   
+       111 Raghu           ENG                    150 10-DEC-84      49500      15000     03-DEC-08                                                   
+       101 Ravi            MGR                    111 10-OCT-95      32000      10000 D1  02-OCT-06 p1                                                
+       106 Nishan          A_MGR                  111 02-OCT-86      50000       5000 D2  24-NOV-95 p1                                                
+       102 Raviraj         ENG                    106 10-JAN-85      26400       6000 D1  12-NOV-10 p3                                                
+       103 Kishan          DEV                    111 10-DEC-80      44000       4000 D1  22-SEP-01 p3                                                
+       105 Varun           CLK                    111 02-AUG-80      21000       2000 D1  12-OCT-02 p3                                                
+       125 Manu            DEV                    150 10-DEC-80      29000       4000 D4  12-OCT-02 p3                                                
+       104 Vikas           CLK                    125 02-OCT-80      25000       3000 D2  26-NOV-05 p1                                                
+       123 Mahesh          MGR                    111 10-DEC-84      35000      10000 D3  23-DEC-08 p2                                                
+       108 Suresh          DEV                    106 10-NOV-80      45000       5000 D3  02-OCT-05 p2                                                
+
+     EMPNO ENAME           JOB                  MGRID DATEOFBIR     SALARY       COMM DEP DATEJOIN  PRO                                               
+---------- --------------- --------------- ---------- --------- ---------- ---------- --- --------- ---                                               
+       109 Vignesh         DEV                    111 10-JUL-80      45000       5000 D1  26-JAN-99 p3                                                
+       110 Harish          CLK                    106 10-JAN-85      28000       5000 D5  10-DEC-07                                                   
+       112 Prathith        DEV                    150 20-JAN-95      60000       4000 D1  10-DEC-05 p1                                                
+       113 Tanishk         DEV                    150 15-JAN-85      50000       5000 D5  15-JAN-09                                                   
+
+15 rows selected.
+
+SQL> select * from dept;
+
+DNO DNAME           LOC DEPT_BUDGET                                                                                                                   
+--- --------------- --- -----------                                                                                                                   
+D1  Marketing       CHN      500000                                                                                                                   
+D2  Research        MNG      300000                                                                                                                   
+D3  IT              BNG      400000                                                                                                                   
+D4  HR              BNG      200000                                                                                                                   
+D5  Accounts        BNG      500000                                                                                                                   
+    Corporate       HYB      700000                                                                                                                   
+D6  Sales           HYB      500000                                                                                                                   
+D7  Developer       BNG      900000                                                                                                                   
+
+8 rows selected.
+
+SQL> select * from emp where orderby deptno,salary desc;
+select * from emp where orderby deptno,salary desc
+                                *
+ERROR at line 1:
+ORA-00920: invalid relational operator 
+
+
+SQL> select * from emp where orderby deptno asc,salary desc;
+select * from emp where orderby deptno asc,salary desc
+                                *
+ERROR at line 1:
+ORA-00920: invalid relational operator 
+
+
+SQL> select * from emp where order by deptno asc,salary desc;
+select * from emp where order by deptno asc,salary desc
+                        *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select * from emp order by deptno asc,salary desc;
+
+     EMPNO ENAME           JOB                  MGRID DATEOFBIR     SALARY       COMM DEP DATEJOIN  PRO                                               
+---------- --------------- --------------- ---------- --------- ---------- ---------- --- --------- ---                                               
+       112 Prathith        DEV                    150 20-JAN-95      60000       4000 D1  10-DEC-05 p1                                                
+       109 Vignesh         DEV                    111 10-JUL-80      45000       5000 D1  26-JAN-99 p3                                                
+       103 Kishan          DEV                    111 10-DEC-80      44000       4000 D1  22-SEP-01 p3                                                
+       101 Ravi            MGR                    111 10-OCT-95      32000      10000 D1  02-OCT-06 p1                                                
+       102 Raviraj         ENG                    106 10-JAN-85      26400       6000 D1  12-NOV-10 p3                                                
+       105 Varun           CLK                    111 02-AUG-80      21000       2000 D1  12-OCT-02 p3                                                
+       106 Nishan          A_MGR                  111 02-OCT-86      50000       5000 D2  24-NOV-95 p1                                                
+       104 Vikas           CLK                    125 02-OCT-80      25000       3000 D2  26-NOV-05 p1                                                
+       108 Suresh          DEV                    106 10-NOV-80      45000       5000 D3  02-OCT-05 p2                                                
+       123 Mahesh          MGR                    111 10-DEC-84      35000      10000 D3  23-DEC-08 p2                                                
+       125 Manu            DEV                    150 10-DEC-80      29000       4000 D4  12-OCT-02 p3                                                
+
+     EMPNO ENAME           JOB                  MGRID DATEOFBIR     SALARY       COMM DEP DATEJOIN  PRO                                               
+---------- --------------- --------------- ---------- --------- ---------- ---------- --- --------- ---                                               
+       113 Tanishk         DEV                    150 15-JAN-85      50000       5000 D5  15-JAN-09                                                   
+       110 Harish          CLK                    106 10-JAN-85      28000       5000 D5  10-DEC-07                                                   
+       150 Adithya         CEO                        10-DEC-90      60000      30000     03-DEC-08                                                   
+       111 Raghu           ENG                    150 10-DEC-84      49500      15000     03-DEC-08                                                   
+
+15 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from task where projno='p3';
+select * from task where projno='p3'
+                         *
+ERROR at line 1:
+ORA-00904: "PROJNO": invalid identifier 
+
+
+SQL> select * from task where projid='p3';
+
+PRO DNO     TASKID TASKNAME                       STARTDATE ENDDATE   STATUS                                                                          
+--- --- ---------- ------------------------------ --------- --------- ------------                                                                    
+p3  D1           1 Schema mapping                 01-MAR-22 20-MAR-22 COMPLETED                                                                       
+p3  D4           1 Dataset Collection             15-FEB-22 28-FEB-22 COMPLETED                                                                       
+p3  D1           2 Model training                 01-MAR-22           INPROGRESS                                                                      
+
+SQL> spool off;

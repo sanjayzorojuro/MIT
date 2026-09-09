@@ -1,0 +1,10 @@
+select * from emp where salary>25000 and deptno='D1';
+
+select ename EmployeeName , salary Salary from emp where salary>=25200 and salary<=35200;
+
+select ename from emp,dept where deptno=dno and location in('BNG','MUB','HYD');
+
+select * from emp order by deptno asc,salary desc;
+
+select * from task where projid='p3';
+

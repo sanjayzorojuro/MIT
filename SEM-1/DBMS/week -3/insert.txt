@@ -12,7 +12,7 @@ insert into dept(dno,dname,location,dept_budget)values(null,'Corporate','HYB',70
 
 
 
-  
+
 
 insert into emp values(100,'Ravi','MGR',111,'10-oct-1995',32000,5000,'D1','2-oct-2006','P1');
 //emp no check constraint violated empno should b greater than 100
@@ -20,8 +20,8 @@ insert into emp values(100,'Ravi','MGR',111,'10-oct-1995',32000,5000,'D1','2-oct
 insert into emp values(101,'Ravi','MGR',111,'10-oct-1995',32000,5000,'D1','2-oct-2006',null);
 //this again will not be inserted because manager id is referencing the empid but there are no employee so first we need to insert the record of manager.
 //since the projid or the project table is not inserted we cannot insert projid in this table so leave null for now and later modify
- 
-insert into emp values(150,'Adithya','CEO',null,'10-dec-1990',60000,30000,null,'3-dec-2008',null); 
+
+insert into emp values(150,'Adithya','CEO',null,'10-dec-1990',60000,30000,null,'3-dec-2008',null);
 insert into emp values(111,'Raghu','ENG',150,'10-dec-1984',45000,15000,null,'3-dec-2008',null);
 insert into emp values(102,'Raviraj','ENG',106,'10-jan-1985',24000,6000,'D1','12-nov-2010',null);
 
@@ -67,31 +67,57 @@ insert into proj values('D5','p4','WareHouse Automation','10','01-jan-2022','30-
 
 
 //now since we have inserted the project numbers we can update the emp table and add project
-update emp set projid='p1' where empno='101';
+update emp set projid='p3' where empno='109';
 
 
 
+insert into task values('p1','D1',1,'Requirement analysis','01-jan-2022','15-jan-2022','COMPLETED');
+insert into task values('p1','D2',2,'Module design','16-jan-2022','10-feb-2022','COMPLETED');
+insert into task values('p2','D3',3,'Coding and testing','11-feb-2022',null,'INPROGRESS');
+insert into task values('p3','D4',1,'Dataset Collection','15-feb-2022','28-feb-2022','COMPLETED');
+insert into task values('p3','D1',2,'Model training','01-mar-2022',null,'INPROGRESS');
+insert into task values('p3','D1',1,'Schema mapping','01-mar-2022','20-mar-2022','COMPLETED');
+insert into task values('p4','D5',1,'Requirement gathering','10-apr-2022',null,'PENDING');
+insert into task values('p4','D5',2,'Site survey','05-may-2022','20-may-2022','COMPLETED');
 
 
 
+insert into dependent values(1,101,'Latha Kumar','F','10-may-1982','SPOUSE',50,'YES');
+//there is no employee whos id is 100....change it to 101
+
+insert into dependent values(2,101,'Arjun Kumar','M','19-jun-2000','CHILD',25,'YES');
+insert into dependent values(3,102,'Seema Ravi','F','01-jan-1980','SPOUSE',60,'YES');
+insert into dependent values(4,103,'Mohan Rao','M','12-dec-1950','PARENT',30,'NO');
+insert into dependent values(5,106,'Neha Rahul','F','22-jul-1990','SPOUSE',70,'YES');
+insert into dependent values(6,108,'Rohan Meera','M','03-mar-2015','CHILD',100,'YES');
+
+
+----------------------------------------------------------------------------------------------------------
+
+update and delete
 
 
 
+delete from emp where projid='p3';
+//cannot do this
+
+delete from dept where dname = 'Accounts';
+//cannot delete this 
+
+delete from emp where empno=125 and projid='p2';
+//the projid of employee 15 is not p2
+
+delete from task where projid='p2';
+
+delete from task where status='PENDING';
 
 
+update emp set job='MGR',salary=35000,mgrid=111 where empno=123;
 
 
+update emp set comm=10000 where job='MGR';
 
 
-
-
-
-
-
-
-
-
-
-
+update emp set salary = salary*1.10 where job='ENG';
 
 
