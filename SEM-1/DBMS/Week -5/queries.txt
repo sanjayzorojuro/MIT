@@ -1,0 +1,427 @@
+-- =========================================================
+-- LAB 5: ADVANCED SQL QUERIES
+-- =========================================================
+
+
+-- 1. List the total number of employees.
+
+SELECT COUNT(*) AS total_employees
+FROM emp;
+
+
+-- 2. List minimum, maximum, average and total salary.
+
+SELECT MIN(salary) AS min_sal,
+       MAX(salary) AS max_sal,
+       AVG(salary) AS avg_sal,
+       SUM(salary) AS total_salary
+FROM emp;
+
+
+-- 3. List the Project names undertaken by Marketing Department.
+
+SELECT p.projname
+FROM proj p, dept d
+WHERE p.dno = d.dno
+AND d.dname = 'Marketing';
+
+
+-- 4. Display employee name in capital, lower, first character capital,
+--    number of characters and 3 characters from 2nd position.
+
+SELECT UPPER(ename) AS upper_name,
+       LOWER(ename) AS lower_name,
+       INITCAP(ename) AS first_char_capital,
+       LENGTH(ename) AS no_of_characters,
+       SUBSTR(ename, 2, 3) AS three_chars_from_second
+FROM emp;
+
+
+-- 5. List employees working under manager 'Raghu'.
+
+SELECT e.ename
+FROM emp e, emp m
+WHERE e.mgrid = m.empno
+AND m.ename = 'Raghu';
+
+
+-- 6. Display department name, maximum salary and minimum salary
+--    in each department.
+
+SELECT d.dname AS department_name,
+       MAX(e.salary) AS max_salary,
+       MIN(e.salary) AS min_salary
+FROM dept d, emp e
+WHERE d.dno = e.deptno
+GROUP BY d.dname;
+
+
+-- 7. Display number of employees working in each department
+--    and their department name.
+
+SELECT d.dname AS department_name,
+       COUNT(e.empno) AS employee_count
+FROM dept d, emp e
+WHERE d.dno = e.deptno
+GROUP BY d.dname;
+
+
+-- 8. List employees whose experience is more than 5 years.
+
+SELECT empno,
+       ename,
+       datejoin
+FROM emp
+WHERE MONTHS_BETWEEN(SYSDATE, datejoin) > 60;
+
+
+-- 9. List employees born in December and year 1984.
+
+SELECT *
+FROM emp
+WHERE EXTRACT(MONTH FROM dateofbirth) = 12
+AND EXTRACT(YEAR FROM dateofbirth) = 1984;
+
+
+-- 10. List number of employees per job title.
+
+SELECT job,
+       COUNT(*) AS employee_count
+FROM emp
+GROUP BY job;
+
+
+-- 11. List departments with more than three employees.
+
+SELECT deptno,
+       COUNT(*) AS employee_count
+FROM emp
+WHERE deptno IS NOT NULL
+GROUP BY deptno
+HAVING COUNT(*) > 3;
+
+
+-- 12. List employees working under the project 'Payroll Automation'.
+
+SELECT e.ename
+FROM emp e, proj p
+WHERE e.deptno = p.dno
+AND e.projid = p.projno
+AND p.projname = 'Payroll Automation';
+
+
+-- 13. Illustrate CEIL, FLOOR, TRUNCATE and ROUND on 2.83.
+
+SELECT CEIL(2.83) AS ceiling_value,
+       FLOOR(2.83) AS floor_value,
+       TRUNC(2.83) AS truncate_value,
+       ROUND(2.83) AS round_value
+FROM dual;
+
+
+-- 14. List projects which have duration of more than 1 year.
+
+SELECT projno,
+       projname,
+       startdate,
+       enddate
+FROM proj
+WHERE enddate - startdate > 365;
+
+
+-- 15. List all employees along with the tasks they are associated
+--     with through their department's projects.
+
+SELECT e.ename,
+       p.projname,
+       t.taskid,
+       t.taskname,
+       t.status
+FROM emp e
+JOIN proj p
+  ON e.deptno = p.dno
+ AND e.projid = p.projno
+JOIN task t
+  ON p.dno = t.dno
+ AND p.projno = t.projid;
+
+
+-- 16. List total project budget sanctioned per department.
+
+SELECT d.dname AS department_name,
+       SUM(p.proj_fund) AS total_project_budget
+FROM dept d, proj p
+WHERE d.dno = p.dno
+GROUP BY d.dname;
+
+
+-- 17. List count of tasks based on status.
+
+SELECT status,
+       COUNT(*) AS task_count
+FROM task
+GROUP BY status;
+
+
+-- 18. List employee names in uppercase with joining year.
+
+SELECT UPPER(ename) AS employee_name,
+       EXTRACT(YEAR FROM datejoin) AS joining_year
+FROM emp;
+
+
+-- 19. List number of months each employee has served.
+
+SELECT ename,
+       TRUNC(MONTHS_BETWEEN(SYSDATE, datejoin)) AS months_served
+FROM emp;
+
+
+-- 20. Display name of highest paid employee along with department name
+--     for every department.
+
+SELECT d.dname AS department_name,
+       e.ename AS employee_name,
+       e.salary
+FROM emp e, dept d
+WHERE e.deptno = d.dno
+AND e.salary = (
+    SELECT MAX(e2.salary)
+    FROM emp e2
+    WHERE e2.deptno = e.deptno
+);
+
+
+-- 21. List job category and total salary paid for each job category.
+
+SELECT job,
+       SUM(salary) AS total_salary
+FROM emp
+GROUP BY job;
+
+
+-- 22. Display name of department from which maximum number of employees
+--     are working on project P1. Using subquery.
+
+SELECT d.dname
+FROM dept d
+WHERE d.dno = (
+    SELECT deptno
+    FROM (
+        SELECT e.deptno,
+               COUNT(*) AS emp_count
+        FROM emp e
+        WHERE e.projid = 'p1'
+        GROUP BY e.deptno
+        ORDER BY emp_count DESC
+    )
+    WHERE ROWNUM = 1
+);
+
+
+-- 23. Select name and job of employees working either in
+--     Marketing or Research department.
+
+SELECT e.ename,
+       e.job
+FROM emp e, dept d
+WHERE e.deptno = d.dno
+AND d.dname IN ('Marketing', 'Research');
+
+
+-- 24. Display name and salary of employees whose salary is greater
+--     than minimum salary of the company. Using subquery.
+
+SELECT ename,
+       salary
+FROM emp
+WHERE salary > (
+    SELECT MIN(salary)
+    FROM emp
+);
+
+
+-- 25. Display employees working on the most projects.
+
+SELECT ename,
+       COUNT(projid) AS project_count
+FROM emp
+WHERE projid IS NOT NULL
+GROUP BY empno, ename
+HAVING COUNT(projid) = (
+    SELECT MAX(project_count)
+    FROM (
+        SELECT COUNT(projid) AS project_count
+        FROM emp
+        WHERE projid IS NOT NULL
+        GROUP BY empno
+    )
+);
+
+
+-- 26. Display Deptno of department having highest average salary.
+--     Using subquery.
+
+SELECT deptno
+FROM emp
+WHERE deptno IS NOT NULL
+GROUP BY deptno
+HAVING AVG(salary) = (
+    SELECT MAX(avg_salary)
+    FROM (
+        SELECT AVG(salary) AS avg_salary
+        FROM emp
+        WHERE deptno IS NOT NULL
+        GROUP BY deptno
+    )
+);
+
+
+-- 27. List names of departments which are working on more than 1 project.
+--     Using subquery.
+
+SELECT d.dname
+FROM dept d
+WHERE d.dno IN (
+    SELECT p.dno
+    FROM proj p
+    GROUP BY p.dno
+    HAVING COUNT(*) > 1
+);
+
+
+-- 28. Display how many employees joined after 15th of all months.
+
+SELECT COUNT(*) AS employee_count
+FROM emp
+WHERE EXTRACT(DAY FROM datejoin) > 15;
+
+
+-- 29. Employee number, name and job of employees who work in the
+--     same job as 'Mahesh'.
+
+SELECT empno,
+       ename,
+       job
+FROM emp
+WHERE job = (
+    SELECT job
+    FROM emp
+    WHERE ename = 'Mahesh'
+);
+
+
+-- 30. Create View EMP_PRJ_VW to display records of employees of
+--     Marketing department and project in which they are working.
+
+CREATE OR REPLACE VIEW EMP_PRJ_VW AS
+SELECT e.empno,
+       e.ename,
+       e.job,
+       e.deptno,
+       d.dname AS department_name,
+       p.projno,
+       p.projname
+FROM emp e, dept d, proj p
+WHERE e.deptno = d.dno
+AND e.deptno = p.dno
+AND e.projid = p.projno
+AND d.dname = 'Marketing';
+
+
+-- 31. Display employee names and projects using View EMP_PRJ_VW.
+
+SELECT ename,
+       projname
+FROM EMP_PRJ_VW;
+
+
+-- 32. Calculate total and average task duration for each project.
+
+SELECT projid,
+       SUM(enddate - startdate) AS total_task_duration,
+       AVG(enddate - startdate) AS average_task_duration
+FROM task
+WHERE enddate IS NOT NULL
+GROUP BY projid;
+
+
+-- 33. List number of employees joined in every month
+--     in ascending order.
+
+SELECT EXTRACT(MONTH FROM datejoin) AS joining_month,
+       COUNT(*) AS employee_count
+FROM emp
+GROUP BY EXTRACT(MONTH FROM datejoin)
+ORDER BY joining_month ASC;
+
+
+-- 34. Create an index on columns ENAME and JOB on EMP table.
+
+CREATE INDEX emp_name_job_idx
+ON emp(ename, job);
+
+
+-- 35. Display employees working in the same department as Ravi.
+
+SELECT ename,
+       deptno
+FROM emp
+WHERE deptno = (
+    SELECT deptno
+    FROM emp
+    WHERE ename = 'Ravi'
+);
+
+
+-- 36. Display names of departments that have at least one project
+--     with budget above 400000. Correlated subquery.
+
+SELECT d.dname
+FROM dept d
+WHERE EXISTS (
+    SELECT 1
+    FROM proj p
+    WHERE p.dno = d.dno
+    AND p.proj_fund > 400000
+);
+
+
+-- 37. Display names of employees who earn more than the average
+--     salary of their own department. Correlated subquery.
+
+SELECT e.ename,
+       e.salary,
+       e.deptno
+FROM emp e
+WHERE e.salary > (
+    SELECT AVG(e2.salary)
+    FROM emp e2
+    WHERE e2.deptno = e.deptno
+);
+
+
+-- 38. Display names of employees who have no dependents.
+--     Your dependent table in the original work is named DEPARTMENT.
+--     This query assumes DEPARTMENT is your dependent table.
+
+SELECT e.ename
+FROM emp e
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM department d
+    WHERE d.empno = e.empno
+);
+
+
+-- 39. List names of developers or engineers using SET OPERATION.
+
+SELECT ename
+FROM emp
+WHERE job = 'DEV'
+
+UNION
+
+SELECT ename
+FROM emp
+WHERE job = 'ENG';
