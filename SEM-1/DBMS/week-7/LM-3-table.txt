@@ -1,0 +1,9 @@
+create table empsal(
+	empno number(3),
+	empname varchar2(20),
+	sal number(10,2),
+	hra number(10,2),
+	da number(10,2),
+	gross_salary number(10,2),
+	pf number(10,2),
+	net_sal number(10,2));

@@ -1,0 +1,193 @@
+SQL> @'D:\261090700065\dmbs\week-7\LM-1.sql'
+First five department number:                                                   
+D1                                                                              
+D2                                                                              
+D3                                                                              
+D4                                                                              
+D5                                                                              
+
+PL/SQL procedure successfully completed.
+
+SQL> @'D:\261090700065\dmbs\week-7\LM-2.sql'
+Enter value for eno: 101
+old   2: 	eno emp.empno%type := &eno;
+new   2: 	eno emp.empno%type := 101;
+Ravi works in Marketing department and draws 32000 as salary.                   
+
+PL/SQL procedure successfully completed.
+
+SQL> @'D:\261090700065\dmbs\week-7\LM-3.sql'
+Enter value for eno: 125
+old   2: 	eno emp.empno%type := &eno;
+new   2: 	eno emp.empno%type := 125;
+Employee name:Manu                                                              
+Salary:29000                                                                    
+HRA:14500                                                                       
+DA:5800                                                                         
+Gross Salary:49300                                                              
+PF:3480                                                                         
+Net Salary:45820                                                                
+
+PL/SQL procedure successfully completed.
+
+SQL> @'D:\261090700065\dmbs\week-7\LM-4.sql'
+
+Department: Marketing                                                          
+101  Ravi  MGR  32000                                                           
+102  Raviraj  ENG  26400                                                        
+103  Kishan  DEV  44000                                                         
+105  Varun  CLK  21000                                                          
+109  Vignesh  DEV  45000                                                        
+112  Prathith  DEV  60000                                                       
+
+Department: Research                                                           
+104  Vikas  CLK  25000                                                          
+106  Nishan  A_MGR  50000                                                       
+
+Department: IT                                                                 
+108  Suresh  DEV  45000                                                         
+123  Mahesh  MGR  35000                                                         
+
+Department: HR                                                                 
+125  Manu  DEV  29000                                                           
+
+Department: Accounts                                                           
+110  Harish  CLK  28000                                                         
+113  Tanishk  DEV  50000                                                        
+
+PL/SQL procedure successfully completed.
+
+SQL> @'D:\261090700065\dmbs\week-7\LM-5.sql'
+Project: Payroll Automation                                                     
+Project fund: 500000                                                            
+Project credits: 4                                                              
+Allocated amount: 200000                                                        
+Employee count: 2                                                               
+Incentive for employee: 70000                                                   
+Added to department budget: 60000
+                                              
+Project: AI Research Platfom                                                    
+Project fund: 900000                                                            
+Project credits: 7                                                              
+Allocated amount: 630000                                                        
+Employee count: 2                                                               
+Incentive for employee: 220500                                                  
+Added to department budget: 189000
+                                             
+Project: Data Warehouse MIGR                                                    
+Project fund: 650000                                                            
+Project credits: 8                                                              
+Allocated amount: 520000                                                        
+Employee count: 2                                                               
+Incentive for employee: 182000                                                  
+Added to department budget: 156000
+                                             
+Project: CRM Revamp                                                             
+Project fund: 400000                                                            
+Project credits: 5                                                              
+Allocated amount: 200000                                                        
+Employee count: 1                                                               
+Incentive for employee: 140000                                                  
+Added to department budget: 60000
+                                              
+Project: ERP Revamp                                                             
+Project fund: 500000                                                            
+Project credits: 9                                                              
+Allocated amount: 450000                                                        
+Employee count: 4                                                               
+Incentive for employee: 78750                                                   
+Added to department budget: 135000
+                                             
+Project: WareHouse Automation                                                   
+Project fund: 500000                                                            
+Project credits: 10                                                             
+Allocated amount: 500000                                                        
+No of employee working on this project.                                         
+Added to department budget: 150000
+                                             
+
+PL/SQL procedure successfully completed.
+
+SQL> @'D:\261090700065\dmbs\week-7\LM-6.sql'
+
+Project :Payroll Automation(p1 )                                               
+Task id : 1                                                                     
+Task name:Requirement analysis                                                  
+Start date:01-jan-2022                                                          
+End date:15-jan-2022                                                            
+Status:COMPLETED                                                                
+
+Project :ERP Revamp(p3 )                                                       
+Task id : 1                                                                     
+Task name:Schema mapping                                                        
+Start date:01-mar-2022                                                          
+End date:20-mar-2022                                                            
+Status:COMPLETED                                                                
+
+Project :ERP Revamp(p3 )                                                       
+Task id : 2                                                                     
+Task name:Model training                                                        
+Start date:01-mar-2022                                                          
+End date:Not completed                                                          
+Status:INPROGRESS                                                               
+
+Project :AI Research Platfom(p1 )                                              
+Task id : 2                                                                     
+Task name:Module design                                                         
+Start date:16-jan-2022                                                          
+End date:10-feb-2022                                                            
+Status:COMPLETED                                                                
+
+Project :Data Warehouse MIGR(p2 )                                              
+Task id : 3                                                                     
+Task name:Coding and testing                                                    
+Start date:11-feb-2022                                                          
+End date:Not completed                                                          
+Status:INPROGRESS                                                               
+
+Project :CRM Revamp(p3 )                                                       
+Task id : 1                                                                     
+Task name:Dataset Collection                                                    
+Start date:15-feb-2022                                                          
+End date:28-feb-2022                                                            
+Status:COMPLETED                                                                
+
+Project :WareHouse Automation(p4 )                                             
+Task id : 1                                                                     
+Task name:Requirement gathering                                                 
+Start date:10-apr-2022                                                          
+End date:Not completed                                                          
+Status:PENDING                                                                  
+
+Project :WareHouse Automation(p4 )                                             
+Task id : 2                                                                     
+Task name:Site survey                                                           
+Start date:05-may-2022                                                          
+End date:20-may-2022                                                            
+Status:COMPLETED                                                                
+
+PL/SQL procedure successfully completed.
+
+SQL> @'D:\261090700065\dmbs\week-7\LM-7.sql'
+Enter value for job: DEV
+old   2: 	job emp.job%type := '&job';
+new   2: 	job emp.job%type := 'DEV';
+Enter value for dno: D5
+old   3: 	dno emp.deptno%type := '&dno';
+new   3: 	dno emp.deptno%type := 'D5';
+Employees with job = DEV and department = D5                                    
+113 Tanishk DEV D5  50000                                                       
+
+PL/SQL procedure successfully completed.
+
+SQL> @'D:\261090700065\dmbs\week-7\LM-8.sql'
+Enter value for projid: p2
+old   2: 	projid proj.projno%type := '&projid';
+new   2: 	projid proj.projno%type := 'p2';
+Top 2 highest paid employee for project p2                                      
+Suresh 45000 IT                                                                 
+Mahesh 35000 IT                                                                 
+
+PL/SQL procedure successfully completed.
+
+SQL> spool off;
