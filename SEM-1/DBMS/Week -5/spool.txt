@@ -1,0 +1,592 @@
+SQL> select upper(ename) as upper_name ,lower(ename) as lower_name,initcap(ename) as initcap , length(ename) as no_of_char,substr(ename,2,3) as three_char from emp;
+
+UPPER_NAME      LOWER_NAME      INITCAP         NO_OF_CHAR THREE_CHAR           
+--------------- --------------- --------------- ---------- ------------         
+ADITHYA         adithya         Adithya                  7 dit                  
+RAGHU           raghu           Raghu                    5 agh                  
+RAVI            ravi            Ravi                     4 avi                  
+NISHAN          nishan          Nishan                   6 ish                  
+RAVIRAJ         raviraj         Raviraj                  7 avi                  
+KISHAN          kishan          Kishan                   6 ish                  
+VARUN           varun           Varun                    5 aru                  
+MANU            manu            Manu                     4 anu                  
+VIKAS           vikas           Vikas                    5 ika                  
+MAHESH          mahesh          Mahesh                   6 ahe                  
+SURESH          suresh          Suresh                   6 ure                  
+
+UPPER_NAME      LOWER_NAME      INITCAP         NO_OF_CHAR THREE_CHAR           
+--------------- --------------- --------------- ---------- ------------         
+VIGNESH         vignesh         Vignesh                  7 ign                  
+HARISH          harish          Harish                   6 ari                  
+PRATHITH        prathith        Prathith                 8 rat                  
+TANISHK         tanishk         Tanishk                  7 ani                  
+
+15 rows selected.
+
+SQL> select e.ename from emp e , emp m where e.mgrid = m.empno and m.manager = 'Raghu';
+select e.ename from emp e , emp m where e.mgrid = m.empno and m.manager = 'Raghu'
+                                                              *
+ERROR at line 1:
+ORA-00904: "M"."MANAGER": invalid identifier 
+
+
+SQL> select e.ename from emp e , emp m where e.mgrid = m.empno and m.ename = 'Raghu';
+
+ENAME                                                                           
+---------------                                                                 
+Ravi                                                                            
+Varun                                                                           
+Vignesh                                                                         
+Nishan                                                                          
+Kishan                                                                          
+Mahesh                                                                          
+
+6 rows selected.
+
+SQL> select d.dname as department_name , max(e.salary) as Max_salary,min(e.salary) as Min_salary from dept d , emp e where d.dno = e.deptno group by d.dname;
+
+DEPARTMENT_NAME MAX_SALARY MIN_SALARY                                           
+--------------- ---------- ----------                                           
+Accounts             50000      28000                                           
+Marketing            60000      21000                                           
+HR                   29000      29000                                           
+Research             50000      25000                                           
+IT                   45000      35000                                           
+
+SQL> select d.dname as dept_name , count(e.empno) as employee_count from dept d , emp e where d.dno = e.deptno group by d.dname;
+
+DEPT_NAME       EMPLOYEE_COUNT                                                  
+--------------- --------------                                                  
+Accounts                     2                                                  
+Marketing                    6                                                  
+HR                           1                                                  
+Research                     2                                                  
+IT                           2                                                  
+
+SQL> select empno,ename,datejoin from emp where months_between(sysdate,datejoin)>60;
+
+     EMPNO ENAME           DATEJOIN                                             
+---------- --------------- ---------                                            
+       150 Adithya         03-DEC-08                                            
+       111 Raghu           03-DEC-08                                            
+       101 Ravi            02-OCT-06                                            
+       106 Nishan          24-NOV-95                                            
+       102 Raviraj         12-NOV-10                                            
+       103 Kishan          22-SEP-01                                            
+       105 Varun           12-OCT-02                                            
+       125 Manu            12-OCT-02                                            
+       104 Vikas           26-NOV-05                                            
+       123 Mahesh          23-DEC-08                                            
+       108 Suresh          02-OCT-05                                            
+
+     EMPNO ENAME           DATEJOIN                                             
+---------- --------------- ---------                                            
+       109 Vignesh         26-JAN-99                                            
+       110 Harish          10-DEC-07                                            
+       112 Prathith        10-DEC-05                                            
+       113 Tanishk         15-JAN-09                                            
+
+15 rows selected.
+
+SQL> select * from emp where extract(month from dateofbirth) = 12 and extract(year from dateofbirth) = 1984;
+
+     EMPNO ENAME           JOB                  MGRID DATEOFBIR     SALARY      
+---------- --------------- --------------- ---------- --------- ----------      
+      COMM DEP DATEJOIN  PRO                                                    
+---------- --- --------- ---                                                    
+       111 Raghu           ENG                    150 10-DEC-84      49500      
+     15000     03-DEC-08                                                        
+                                                                                
+       123 Mahesh          MGR                    111 10-DEC-84      35000      
+     10000 D3  23-DEC-08 p2                                                     
+                                                                                
+
+SQL> select job,count(*) as employee_count from emp group by job;
+
+JOB             EMPLOYEE_COUNT                                                  
+--------------- --------------                                                  
+CEO                          1                                                  
+A_MGR                        1                                                  
+CLK                          3                                                  
+ENG                          2                                                  
+DEV                          6                                                  
+MGR                          2                                                  
+
+6 rows selected.
+
+SQL> select deptno, count(*) as employee_count from emp where deptno is not null group by deptno having count(*)>3;
+
+DEP EMPLOYEE_COUNT                                                              
+--- --------------                                                              
+D1               6                                                              
+
+SQL> select e.ename from emp e ,proj p where e.deptno = p.dno and e.projid = p.projno and p.projname = 'Payroll Automation';
+
+ENAME                                                                           
+---------------                                                                 
+Ravi                                                                            
+Prathith                                                                        
+
+SQL> select ceil(2.83) as ceiling_value,floor(2.83) as floor_value,trunc(2.83)as trunc_value,round(2.83) as round_value from dual;
+
+CEILING_VALUE FLOOR_VALUE TRUNC_VALUE ROUND_VALUE                               
+------------- ----------- ----------- -----------                               
+            3           2           2           3                               
+
+SQL> select * from proj where enddate -startdate >365;
+
+DNO PRO PROJNAME             PROJCREDIT STARTDATE ENDDATE    PROJ_FUND          
+--- --- -------------------- ---------- --------- --------- ----------          
+D1  p3  ERP Revamp                    9 11-JAN-20 12-DEC-21     500000          
+
+SQL> select e.ename,p.projname,t.taskid,t.taskname,t.status from emp e join proj p on e.deptno = p.dno and e.projid = p.projno join task t on p.dno = t.dno and p.projno = t.projid;
+
+ENAME           PROJNAME                 TASKID TASKNAME                        
+--------------- -------------------- ---------- ------------------------------  
+STATUS                                                                          
+------------                                                                    
+Ravi            Payroll Automation            1 Requirement analysis            
+COMPLETED                                                                       
+                                                                                
+Nishan          AI Research Platfom           2 Module design                   
+COMPLETED                                                                       
+                                                                                
+Raviraj         ERP Revamp                    1 Schema mapping                  
+COMPLETED                                                                       
+                                                                                
+
+ENAME           PROJNAME                 TASKID TASKNAME                        
+--------------- -------------------- ---------- ------------------------------  
+STATUS                                                                          
+------------                                                                    
+Raviraj         ERP Revamp                    2 Model training                  
+INPROGRESS                                                                      
+                                                                                
+Kishan          ERP Revamp                    1 Schema mapping                  
+COMPLETED                                                                       
+                                                                                
+Kishan          ERP Revamp                    2 Model training                  
+INPROGRESS                                                                      
+                                                                                
+
+ENAME           PROJNAME                 TASKID TASKNAME                        
+--------------- -------------------- ---------- ------------------------------  
+STATUS                                                                          
+------------                                                                    
+Varun           ERP Revamp                    1 Schema mapping                  
+COMPLETED                                                                       
+                                                                                
+Varun           ERP Revamp                    2 Model training                  
+INPROGRESS                                                                      
+                                                                                
+Manu            CRM Revamp                    1 Dataset Collection              
+COMPLETED                                                                       
+                                                                                
+
+ENAME           PROJNAME                 TASKID TASKNAME                        
+--------------- -------------------- ---------- ------------------------------  
+STATUS                                                                          
+------------                                                                    
+Vikas           AI Research Platfom           2 Module design                   
+COMPLETED                                                                       
+                                                                                
+Mahesh          Data Warehouse MIGR           3 Coding and testing              
+INPROGRESS                                                                      
+                                                                                
+Suresh          Data Warehouse MIGR           3 Coding and testing              
+INPROGRESS                                                                      
+                                                                                
+
+ENAME           PROJNAME                 TASKID TASKNAME                        
+--------------- -------------------- ---------- ------------------------------  
+STATUS                                                                          
+------------                                                                    
+Vignesh         ERP Revamp                    1 Schema mapping                  
+COMPLETED                                                                       
+                                                                                
+Vignesh         ERP Revamp                    2 Model training                  
+INPROGRESS                                                                      
+                                                                                
+Prathith        Payroll Automation            1 Requirement analysis            
+COMPLETED                                                                       
+                                                                                
+
+15 rows selected.
+
+SQL> select d.dname as Dept_name, sum(p.proj_fund) as total_proj_budget from dept d , proj p where d.dno = p.dno group by dname;
+
+DEPT_NAME       TOTAL_PROJ_BUDGET                                               
+--------------- -----------------                                               
+Accounts                   500000                                               
+Marketing                 1000000                                               
+HR                         400000                                               
+Research                   900000                                               
+IT                         650000                                               
+
+SQL> select status,count(*) as task_count from task group by status;
+
+STATUS       TASK_COUNT                                                         
+------------ ----------                                                         
+PENDING               1                                                         
+COMPLETED             5                                                         
+INPROGRESS            2                                                         
+
+SQL> select upper(ename) as employe_name, extract(year from datejoin) as joining_year from emp;
+
+EMPLOYE_NAME    JOINING_YEAR                                                    
+--------------- ------------                                                    
+ADITHYA                 2008                                                    
+RAGHU                   2008                                                    
+RAVI                    2006                                                    
+NISHAN                  1995                                                    
+RAVIRAJ                 2010                                                    
+KISHAN                  2001                                                    
+VARUN                   2002                                                    
+MANU                    2002                                                    
+VIKAS                   2005                                                    
+MAHESH                  2008                                                    
+SURESH                  2005                                                    
+
+EMPLOYE_NAME    JOINING_YEAR                                                    
+--------------- ------------                                                    
+VIGNESH                 1999                                                    
+HARISH                  2007                                                    
+PRATHITH                2005                                                    
+TANISHK                 2009                                                    
+
+15 rows selected.
+
+SQL> 
+SQL> select ename , trunc (months_between (sysdate , datejoin)) as month_served from emp;
+
+ENAME           MONTH_SERVED                                                    
+--------------- ------------                                                    
+Adithya                  213                                                    
+Raghu                    213                                                    
+Ravi                     239                                                    
+Nishan                   369                                                    
+Raviraj                  190                                                    
+Kishan                   300                                                    
+Varun                    287                                                    
+Manu                     287                                                    
+Vikas                    249                                                    
+Mahesh                   213                                                    
+Suresh                   251                                                    
+
+ENAME           MONTH_SERVED                                                    
+--------------- ------------                                                    
+Vignesh                  331                                                    
+Harish                   225                                                    
+Prathith                 249                                                    
+Tanishk                  212                                                    
+
+15 rows selected.
+
+SQL> 
+SQL> 
+SQL> select d.dname as dept_name, e.ename as emp_name,e.salary from emp e , dept d where e.deptno = d.dno and e.salary=(select max(e2.salary) from emp e2 where e2.deptno = e.deptno);
+
+DEPT_NAME       EMP_NAME            SALARY                                      
+--------------- --------------- ----------                                      
+Marketing       Prathith             60000                                      
+Research        Nishan               50000                                      
+IT              Suresh               45000                                      
+HR              Manu                 29000                                      
+Accounts        Tanishk              50000                                      
+
+SQL> select job,sum(salary) as total_salary from emp group by job;
+
+JOB             TOTAL_SALARY                                                    
+--------------- ------------                                                    
+CEO                    60000                                                    
+A_MGR                  50000                                                    
+CLK                    74000                                                    
+ENG                    75900                                                    
+DEV                   273000                                                    
+MGR                    67000                                                    
+
+6 rows selected.
+
+SQL> select d.dname from dept d where d.dno = (select deptno from ( select e.deptno,count(*) as emp_count from emp e where e.projid = 'p1' group by e.deptno order by emp_count desc)where rownum = 1);
+
+DNAME                                                                           
+---------------                                                                 
+Marketing                                                                       
+
+SQL> select e.ename,e.job from emp e , dept d where e.deptno = d.dno and d.dname in('Marketing','Research');
+
+ENAME           JOB                                                             
+--------------- ---------------                                                 
+Ravi            MGR                                                             
+Nishan          A_MGR                                                           
+Raviraj         ENG                                                             
+Kishan          DEV                                                             
+Varun           CLK                                                             
+Vikas           CLK                                                             
+Vignesh         DEV                                                             
+Prathith        DEV                                                             
+
+8 rows selected.
+
+SQL> select ename,salary from emp where salary > ( select min(salary) from emp);
+
+ENAME               SALARY                                                      
+--------------- ----------                                                      
+Adithya              60000                                                      
+Raghu                49500                                                      
+Ravi                 32000                                                      
+Nishan               50000                                                      
+Raviraj              26400                                                      
+Kishan               44000                                                      
+Manu                 29000                                                      
+Vikas                25000                                                      
+Mahesh               35000                                                      
+Suresh               45000                                                      
+Vignesh              45000                                                      
+
+ENAME               SALARY                                                      
+--------------- ----------                                                      
+Harish               28000                                                      
+Prathith             60000                                                      
+Tanishk              50000                                                      
+
+14 rows selected.
+
+SQL> select ename,count(projid) as project_count from emp where projid is not null group by empno,ename having count(projid) = ( select max(project_count) from ( select count(projid)as project_count from emp where projid is not null group by empno));
+
+ENAME           PROJECT_COUNT                                                   
+--------------- -------------                                                   
+Varun                       1                                                   
+Prathith                    1                                                   
+Kishan                      1                                                   
+Suresh                      1                                                   
+Manu                        1                                                   
+Nishan                      1                                                   
+Mahesh                      1                                                   
+Vignesh                     1                                                   
+Raviraj                     1                                                   
+Vikas                       1                                                   
+Ravi                        1                                                   
+
+11 rows selected.
+
+SQL> SELECT ename,
+  2         COUNT(projid) AS project_count
+  3  FROM emp
+  4  WHERE projid IS NOT NULL
+  5  GROUP BY empno, ename
+  6  HAVING COUNT(projid) = (
+  7      SELECT MAX(project_count)
+  8      FROM (
+  9          SELECT COUNT(projid) AS project_count
+ 10          FROM emp
+ 11          WHERE projid IS NOT NULL
+ 12          GROUP BY empno
+ 13      )
+ 14  );
+
+ENAME           PROJECT_COUNT                                                   
+--------------- -------------                                                   
+Varun                       1                                                   
+Prathith                    1                                                   
+Kishan                      1                                                   
+Suresh                      1                                                   
+Manu                        1                                                   
+Nishan                      1                                                   
+Mahesh                      1                                                   
+Vignesh                     1                                                   
+Raviraj                     1                                                   
+Vikas                       1                                                   
+Ravi                        1                                                   
+
+11 rows selected.
+
+SQL> 26.
+SP2-0042: unknown command "26." - rest of line ignored.
+SQL> select deptno from emp where deptno is not null group by deptno having avg(salary) = ( select max(avg_salary) from (select avg(salary) as avg_salary from emp where deptno is not null group by deptno));
+
+DEP                                                                             
+---                                                                             
+D3                                                                              
+
+SQL> select d.dname from dept d where d.dno in (select p.dno from proj p group by p.dno having count(*) > 1);
+
+DNAME                                                                           
+---------------                                                                 
+Marketing                                                                       
+
+SQL> select count(*) as emp_count from emp where extract(day from datejoin)>15;
+
+ EMP_COUNT                                                                      
+----------                                                                      
+         5                                                                      
+
+SQL> select empno,ename,job from emp where job = ( select job from emp where ename = 'Mahesh');
+
+     EMPNO ENAME           JOB                                                  
+---------- --------------- ---------------                                      
+       101 Ravi            MGR                                                  
+       123 Mahesh          MGR                                                  
+
+SQL> create or replace view view_emp as select e.empno,e.ename,e.job,e.deptno,d.dname as Dept_name,p.projno,p.projname from emp e , dept d , proj p where e.deptno = d.dno and e.deptno = p.dno and e.projid = p.projno and d.dname = 'Marketing';
+
+View created.
+
+SQL> select * from view_emp;
+
+     EMPNO ENAME           JOB             DEP DEPT_NAME       PRO              
+---------- --------------- --------------- --- --------------- ---              
+PROJNAME                                                                        
+--------------------                                                            
+       101 Ravi            MGR             D1  Marketing       p1               
+Payroll Automation                                                              
+                                                                                
+       112 Prathith        DEV             D1  Marketing       p1               
+Payroll Automation                                                              
+                                                                                
+       102 Raviraj         ENG             D1  Marketing       p3               
+ERP Revamp                                                                      
+                                                                                
+
+     EMPNO ENAME           JOB             DEP DEPT_NAME       PRO              
+---------- --------------- --------------- --- --------------- ---              
+PROJNAME                                                                        
+--------------------                                                            
+       103 Kishan          DEV             D1  Marketing       p3               
+ERP Revamp                                                                      
+                                                                                
+       105 Varun           CLK             D1  Marketing       p3               
+ERP Revamp                                                                      
+                                                                                
+       109 Vignesh         DEV             D1  Marketing       p3               
+ERP Revamp                                                                      
+                                                                                
+
+6 rows selected.
+
+SQL> select ename,projname from view_emp;
+
+ENAME           PROJNAME                                                        
+--------------- --------------------                                            
+Ravi            Payroll Automation                                              
+Prathith        Payroll Automation                                              
+Raviraj         ERP Revamp                                                      
+Kishan          ERP Revamp                                                      
+Varun           ERP Revamp                                                      
+Vignesh         ERP Revamp                                                      
+
+6 rows selected.
+
+SQL> select projid,sum(enddate-startdate)as total_task_duration,avg(enddate-startdate) as average_task_duration from task where enddate is not null group by projid;
+
+PRO TOTAL_TASK_DURATION AVERAGE_TASK_DURATION                                   
+--- ------------------- ---------------------                                   
+p1                   39                  19.5                                   
+p3                   32                    16                                   
+p4                   15                    15                                   
+
+SQL> select extract (month from datejoin) as joining_month,count(*) as employee_count from emp group by extract(month from datajoin) order by joining_month asc;
+select extract (month from datejoin) as joining_month,count(*) as employee_count from emp group by extract(month from datajoin) order by joining_month asc
+                                                                                                                      *
+ERROR at line 1:
+ORA-00904: "DATAJOIN": invalid identifier 
+
+
+SQL> select extract (month from datejoin) as joining_month,count(*) as employee_count from emp group by extract(month from datejoin) order by joining_month asc;
+
+JOINING_MONTH EMPLOYEE_COUNT                                                    
+------------- --------------                                                    
+            1              2                                                    
+            9              1                                                    
+           10              4                                                    
+           11              3                                                    
+           12              5                                                    
+
+SQL> create index emp_name_job_inx on emp(ename,job);
+
+Index created.
+
+SQL> select ename,deptno from emp where deptno = ( select deptno from emp where ename = 'Ravi');
+
+ENAME           DEP                                                             
+--------------- ---                                                             
+Ravi            D1                                                              
+Raviraj         D1                                                              
+Kishan          D1                                                              
+Varun           D1                                                              
+Vignesh         D1                                                              
+Prathith        D1                                                              
+
+6 rows selected.
+
+SQL> select d.dname fro dept d whre exists ( select 1 from proj p where p.dno = d.dno and p.proj_fund >400000);
+select d.dname fro dept d whre exists ( select 1 from proj p where p.dno = d.dno and p.proj_fund >400000)
+                   *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> select d.dname fro dept d where exists ( select 1 from proj p where p.dno = d.dno and p.proj_fund >400000);
+select d.dname fro dept d where exists ( select 1 from proj p where p.dno = d.dno and p.proj_fund >400000)
+                   *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> select d.dname from dept d where exists ( select 1 from proj p where p.dno = d.dno and p.proj_fund >400000);
+
+DNAME                                                                           
+---------------                                                                 
+Marketing                                                                       
+Research                                                                        
+IT                                                                              
+Accounts                                                                        
+
+SQL> 
+SQL> select e.ename,e.salary ,e.deptno from emp e  where e.salary > ( select avg(e2.salary)from emp e2 where e2.deptno =e.deptno);
+
+ENAME               SALARY DEP                                                  
+--------------- ---------- ---                                                  
+Nishan               50000 D2                                                   
+Kishan               44000 D1                                                   
+Suresh               45000 D3                                                   
+Vignesh              45000 D1                                                   
+Prathith             60000 D1                                                   
+Tanishk              50000 D5                                                   
+
+6 rows selected.
+
+SQL> select e.ename from emp e where not exists(select 1 from dependent d where d.empno = e.empno);
+
+ENAME                                                                           
+---------------                                                                 
+Vignesh                                                                         
+Mahesh                                                                          
+Raghu                                                                           
+Nishan                                                                          
+Manu                                                                            
+Varun                                                                           
+Adithya                                                                         
+Vikas                                                                           
+Prathith                                                                        
+Tanishk                                                                         
+Harish                                                                          
+
+11 rows selected.
+
+SQL> select ename from emp where job = 'DEV' union select ename from emp where job = 'ENG';
+
+ENAME                                                                           
+---------------                                                                 
+Kishan                                                                          
+Manu                                                                            
+Prathith                                                                        
+Raghu                                                                           
+Raviraj                                                                         
+Suresh                                                                          
+Tanishk                                                                         
+Vignesh                                                                         
+
+8 rows selected.
+
+SQL> spool off;
