@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>prompt using js and check for match in array.</title>
+</head>
+<body>
+    
+    <h1>Prompt Box with Array Check</h1>
+
+    <script>
+        const validNames = ["Nisham", "Varun", "Kishan", "Vishal"];
+
+        function checkName() {
+            let name = prompt("Enter your name:");
+
+            if (name != null && name != "") {
+                if (validNames.includes(name)) {
+                    alert("Hello " + name + "Your name is in the list of array.");
+                } else {
+                    alert("Hello " + name + " Your name is not in the list of array.");
+                }
+            } else {
+                alert("You did not enter your name.");
+            }
+        }
+
+        checkName();
+
+    </script>
+
+
+</body>
+</html>

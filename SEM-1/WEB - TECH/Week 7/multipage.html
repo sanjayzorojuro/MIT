@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>multipage dropdown </title>
+</head>
+<body>
+    <h1>Multipage Dropdown</h1>
+    <select id="pageSelect" onchange="navigateToPage()">
+        <option value="" disabled selected>Select a page</option>
+        <option value="confirm.html">Confirm Box page</option>
+        <option value="newbw.html">New Browser Window page</option>
+        <option value="additional.html">Prompt Box with Array Check page</option>
+    </select>
+
+
+
+
+    <script>
+        const pageSelect = document.getElementById("pageSelect");
+        window.onload = () => {
+            pageSelect.value = "";
+        };  
+        navigateToPage = () => {
+            const selectedPage = pageSelect.value;
+            if (selectedPage) {
+                window.location.href = selectedPage;
+            }
+        };
+    </script>
+</body>
+</html>

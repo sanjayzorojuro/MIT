@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>new browser window</title>
+</head>
+<body>
+    <h1>Create New Browser Window</h1>
+
+<button onclick="openWindow()">Open Window</button>
+
+<script>
+    function openWindow() {
+
+        let newWindow = window.open("", "", "width=500,height=300");
+
+        newWindow.document.write("<h1>Welcome</h1>");
+        newWindow.document.write("<p>This is a new browser window.</p>");
+        newWindow.document.write("<p>The above text were written using javascript.</p>");
+    }
+</script>
+
+</body>
+</html>

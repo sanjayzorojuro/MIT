@@ -6,211 +6,286 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Gallary</title>
     <style>
-        * {
-            padding: 0;
-            margin: 0;
-            font-family: 'Times New Roman', Times, serif;
-            box-sizing: border-box;
-        }
+    * {
+        padding: 0;
+        margin: 0;
+        font-family: 'Times New Roman', Times, serif;
+        box-sizing: border-box;
+    }
 
-        body {
-            min-height: 100vh;
-            align-items: center;
-            background-color: rgb(233, 255, 255);
-        }
+    body {
+        min-height: 100vh;
+        background-color: rgb(233, 255, 255);
+    }
 
-        .container {
-            width: 100%;
-            min-height: 90vh;
-            border: 1px solid black;
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            padding: 25px 0px 15px 0px;
+    header {
+        width: 100%;
+        height: 50px;
+        border: 1px solid rgb(66, 167, 255);
+        text-align: center;
+        font-size: 32px;
+        padding: 5px;
+        background: linear-gradient(
+            to top,
+            rgb(66, 167, 255),
+            rgb(186, 223, 255)
+        );
+    }
 
-        }
+    .hori {
+        width: 100%;
+        min-height: 45px;
+        font-size: 28px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: linear-gradient(
+            to top,
+            rgb(186, 223, 255),
+            rgb(66, 167, 255)
+        );
+        border-bottom: 1px solid black;
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+    /* Gallery container */
+    .container {
+        width: 100%;
+        min-height: 90vh;
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        padding: 25px 15px;
+    }
+
+    /* Gallery boxes */
+    .box {
+        height: 300px;
+        width: 535px;
+        border: 1px solid black;
+        border-radius: 16px;
+        padding: 15px;
+        background-color: white;
+    }
+
+    .box img {
+        display: block;
+        width: 270px;
+        height: 150px;
+        object-fit: cover;
+        margin: 5px auto 0;
+        border-radius: 16px;
+    }
+
+    p {
+        text-align: center;
+        font-size: 32px;
+        margin-top: 15px;
+    }
+
+
+    @media (min-width: 992px) {
 
         .box {
-            height: 300px;
             width: 535px;
-            border: 1px solid black;
-            border-radius: 16px;
-        }
-
-        a {
-            text-decoration: none;
-            color: black;
-        }
-
-        header {
-            width: 100%;
-            height: 50px;
-            border: 1px solid rgb(66, 167, 255);
-            text-align: center;
-            font-size: 32px;
-            background: linear-gradient(to top, rgb(66, 167, 255), rgb(186, 223, 255));
-        }
-
-        .hori {
-            width: 100%;
-            height: 45px;
-            font-size: 28px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            background: linear-gradient(to top, rgb(186, 223, 255), rgb(66, 167, 255));
-            border-bottom: 1px solid black;
         }
 
         .box img {
             width: 270px;
             height: 150px;
-            margin: 20px 0px 0px 132px;
-            border-radius: 16px;
         }
-        p{
-            text-align: center;
+
+        p {
             font-size: 32px;
-            margin-top:5px;
         }
-    </style>
+    }
+
+
+    @media (min-width: 768px) and (max-width: 991px) {
+
+        header {
+            font-size: 28px;
+        }
+
+        .hori {
+            font-size: 24px;
+        }
+
+        .container {
+            gap: 15px;
+            padding: 20px 10px;
+        }
+
+        .box {
+            width: 45%;
+            height: 280px;
+        }
+
+        .box img {
+            width: 90%;
+            height: 140px;
+            margin: 5px auto 0;
+        }
+
+        p {
+            font-size: 24px;
+            margin-top: 15px;
+        }
+    }
+
+
+
+    @media (max-width: 767px) {
+
+        header {
+            height: auto;
+            min-height: 50px;
+            font-size: 24px;
+            padding: 8px;
+        }
+
+        .hori {
+            min-height: 40px;
+            font-size: 20px;
+        }
+
+        .container {
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 10px;
+        }
+
+        .box {
+            width: 95%;
+            height: auto;
+            min-height: 250px;
+            padding: 15px;
+        }
+
+        .box img {
+            width: 90%;
+            max-width: 270px;
+            height: 140px;
+            margin: 5px auto 0;
+        }
+
+        p {
+            font-size: 21px;
+            margin-top: 12px;
+        }
+    }
+
+
+    @media (max-width: 400px) {
+
+        header {
+            font-size: 21px;
+        }
+
+        .hori {
+            font-size: 18px;
+        }
+
+        .box {
+            width: 100%;
+        }
+
+        .box img {
+            width: 95%;
+            height: 130px;
+        }
+
+        p {
+            font-size: 19px;
+        }
+    }
+</style>
+
 </head>
 
 <body>
+<header>
+    Image Gallery
+</header>
 
-    <header>
-        Image Gallery
-    </header>
+<nav class="hori">
+    <a href="index.html">Home</a>
+    <a href="image.html">Gallery</a>
+</nav>
 
-    <nav class="hori">
-        <a href="index.html">Home</a>
-        <a href="image.html">Gallery</a>
-    </nav>
+<div class="container">
 
-
-    <div class="container">
-
-        <div class="box">
-            <div>
-                <img src="p1.jpg" alt="">
-            </div>
-            <p>
-                Lion : The king of the jungle. 
-            </p>
-
-            
-        </div>
-        <div class="box">
-            <div>
-                <img src="p2.jpg" alt="">
-            </div>
-            <p>Galaxy : Planets and Stars.</p>
-
-
-        </div>
-        <div class="box">
-            <div>
-                <img src="p3.jpg" alt="">
-            </div>
-            <p>
-                Paris : Pic Of Ifile Tower.
-            </p>
-
-
-        </div>
-        <div class="box">
-            <div>
-                <img src="p4.jpg" alt="">
-            </div>
-            <p>
-                Vinland Saga : Image of mountains.
-            </p>
-
-
-        </div>
-        <div class="box">
-            <div>
-                <img src="p5.jpg" alt="">
-            </div>
-            <p>
-                Flower : A picture od Rose.
-            </p>
-
-
-        </div>
-        <div class="box">
-            <div>
-                <img src="p1.jpg" alt="">
-            </div>
-            <p>
-                Lion : The king of the jungle. 
-            </p>
-
-
-        </div>
-        <div class="box">
-            <div>
-                <img src="p2.jpg" alt="">
-
-            </div>
-            <p>Galaxy : Planets and Stars.</p>
-
-        </div>
-        <div class="box">
-            <div>
-                <img src="p3.jpg" alt="">
-
-            </div>
-            <p>
-                Paris : Pic Of Ifile Tower.
-            </p>
-
-        </div>
-        <div class="box">
-            <div>
-                <img src="p4.jpg" alt="">
-
-            </div>
-            <p>
-                Vinland Saga : Image of mountains.
-            </p>
-
-        </div>
-        <div class="box">
-            <div>
-                <img src="p5.jpg" alt="">
-
-            </div>
-            <p>
-                Flower : A picture od Rose.
-            </p>
-
-        </div>
-        <div class="box">
-            <div>
-                <img src="p1.jpg" alt="">
-
-            </div>
-            <p>
-                Lion : The king of the jungle. 
-            </p>
-
-        </div>
-        <div class="box">
-            <div>
-                <img src="p2.jpg" alt="">
-
-            </div>
-            <p>Galaxy : Planets and Stars.</p>
-
-        </div>
-
-
-
+    <div class="box">
+        <img src="p1.jpg" alt="Lion">
+        <p>Lion: The king of the jungle.</p>
     </div>
+
+    <div class="box">
+        <img src="p2.jpg" alt="Galaxy">
+        <p>Galaxy: Planets and Stars.</p>
+    </div>
+
+    <div class="box">
+        <img src="p3.jpg" alt="Paris">
+        <p>Paris: Picture of Eiffel Tower.</p>
+    </div>
+
+    <div class="box">
+        <img src="p4.jpg" alt="Vinland Saga">
+        <p>Vinland Saga: Image of mountains.</p>
+    </div>
+
+    <div class="box">
+        <img src="p5.jpg" alt="Rose">
+        <p>Flower: A picture of a Rose.</p>
+    </div>
+
+    <div class="box">
+        <img src="p1.jpg" alt="Lion">
+        <p>Lion: The king of the jungle.</p>
+    </div>
+
+    <div class="box">
+        <img src="p2.jpg" alt="Galaxy">
+        <p>Galaxy: Planets and Stars.</p>
+    </div>
+
+    <div class="box">
+        <img src="p3.jpg" alt="Paris">
+        <p>Paris: Picture of Eiffel Tower.</p>
+    </div>
+
+    <div class="box">
+        <img src="p4.jpg" alt="Vinland Saga">
+        <p>Vinland Saga: Image of mountains.</p>
+    </div>
+
+    <div class="box">
+        <img src="p5.jpg" alt="Rose">
+        <p>Flower: A picture of a Rose.</p>
+    </div>
+
+    <div class="box">
+        <img src="p1.jpg" alt="Lion">
+        <p>Lion: The king of the jungle.</p>
+    </div>
+
+    <div class="box">
+        <img src="p2.jpg" alt="Galaxy">
+        <p>Galaxy: Planets and Stars.</p>
+    </div>
+
+</div>
+
 
 
 </body>

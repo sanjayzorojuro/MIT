@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+    body {
+        background-color: lightblue;
+        text-align: center;
+        font-family: Arial;
+    }
+
+    h1 {
+        margin-top: 40px;
+    }
+
+    .cradle {
+        width: 400px;
+        height: 300px;
+        margin: 50px auto;
+        position: relative;
+    }
+
+    /* Top bar */
+    .top {
+        width: 300px;
+        height: 15px;
+        background-color: black;
+        position: absolute;
+        top: 20px;
+        left: 50px;
+    }
+
+    /* Hanging strings */
+    .string {
+        width: 50px;
+        height: 185px;
+        position: absolute;
+        top: 35px;
+        transform-origin: top center;
+    }
+
+    /* Thread */
+    .string::before {
+        content: "";
+        width: 2px;
+        height: 134px;
+        background-color: black;
+        position: absolute;
+        left: 24px;
+        top: 0;
+    }
+
+    /* Ball */
+    .ball {
+        width: 48px;
+        height: 48px;
+        background-color: silver;
+        border: 2px solid black;
+        border-radius: 50%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+
+    /* Position of balls */
+    .s1 {
+        left: 75px;
+        animation: right  2s ease-in-out infinite;
+    }
+
+    .s2 {
+        left: 125px;
+    }
+
+    .s3 {
+        left: 175px;
+    }
+
+    .s4 {
+        left: 225px;
+    }
+
+    .s5 {
+        left: 275px;
+        animation: left 2s ease-in-out infinite;
+    }
+
+    /* Left ball swings */
+    @keyframes left {
+        0%, 50%, 100% {
+            transform: rotate(0deg);
+        }
+
+        25% {
+            transform: rotate(-35deg);
+        }
+    }
+
+    /* Right ball swings */
+    @keyframes right {
+        0%, 50%, 100% {
+            transform: rotate(0deg);
+        }
+
+        75% {
+            transform: rotate(35deg);
+        }
+    }
+</style>
+
+
+</head>
+<body>
+
+
+<h1>Newton's Cradle</h1>
+
+<div class="cradle">
+
+    <div class="top"></div>
+
+    <div class="string s1">
+        <div class="ball"></div>
+    </div>
+
+    <div class="string s2">
+        <div class="ball"></div>
+    </div>
+
+    <div class="string s3">
+        <div class="ball"></div>
+    </div>
+
+    <div class="string s4">
+        <div class="ball"></div>
+    </div>
+
+    <div class="string s5">
+        <div class="ball"></div>
+    </div>
+
+</div>
+
+    
+</body>
+</html>

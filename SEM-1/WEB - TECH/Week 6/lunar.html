@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lunar Eclipse</title>
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        background-color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .space {
+        position: relative;
+        width: 600px;
+        height: 350px;
+        background-color: #111;
+        overflow: hidden;
+        border: 2px solid white;
+    }
+
+    /* Earth's Shadow */
+    .shadow {
+        position: absolute;
+        width: 150px;
+        height: 150px;
+        background-color: #461210;
+        border-radius: 50%;
+        top: 100px;
+        left: 225px;
+    }
+
+    /* Moon */
+    .moon {
+        position: absolute;
+        width: 150px;
+        height: 150px;
+        background-color: white;
+        border-radius: 50%;
+        top: 100px;
+        left: -100px;
+
+        animation: eclipse 6s infinite linear;
+    }
+
+    /* Lunar Eclipse Animation */
+    @keyframes eclipse {
+
+        0% {
+            left: -100px;
+            background-color: white;
+        }
+
+        35% {
+            left: 200px;
+            background-color: #bbbbbb;
+        }
+
+        50% {
+            left: 250px;
+            background-color: rgb(236, 117, 18);
+        }
+
+        65% {
+            left: 300px;
+            background-color: #bbbbbb;
+        }
+
+        100% {
+            left: 600px;
+            background-color: white;
+        }
+    }
+
+    h2 {
+        position: absolute;
+        bottom: 10px;
+        width: 100%;
+        text-align: center;
+        color: white;
+        font-family: Arial;
+    }
+</style>
+
+</style>
+
+</head>
+
+<body>
+
+<div class="space">
+
+    <!-- Earth's Shadow -->
+    <div class="shadow"></div>
+
+    <!-- Moon -->
+    <div class="moon"></div>
+
+    <h2>Lunar Eclipse</h2>
+
+</div>
+
+
+
+</body>
+</html>
