@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Colorful Drawing Canvas</title>
+</head>
+<body>
+    <h2>Freehand Drawing</h2>
+    <p id="coordinates">X: 0, Y: 0</p>
+
+    <canvas id="canvas" width="600" height="400"
+        style="border:1px solid black;">
+    </canvas>
+
+    <script>
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+        const coords = document.getElementById("coordinates");
+
+        // Array of 10 colors
+        const colors = [
+            "red", "blue", "green", "orange", "purple",
+            "pink", "yellow", "brown", "cyan", "magenta"
+        ];
+
+        let drawing = false;
+
+
+        canvas.onmousemove = function(e) {
+            drawing = true;
+            coords.innerHTML =
+                "X: " + e.offsetX + ", Y: " + e.offsetY;
+
+            if (drawing) {
+                // Select a random color
+                let randomColor =
+                    colors[Math.floor(Math.random() * colors.length)];
+
+                ctx.strokeStyle = randomColor;
+                ctx.lineWidth = 3;
+                ctx.lineTo(e.offsetX, e.offsetY);
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.moveTo(e.offsetX, e.offsetY);
+            }
+        };
+
+    </script>
+</body>
+</html>

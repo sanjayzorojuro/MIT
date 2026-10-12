@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cookie Example</title>
+</head>
+<body onload="checkCookie()">
+
+    <h2 id="msg"></h2>
+    <p id="time"></p>
+
+    <script>
+        function checkCookie() {
+            var name = "";
+            var lastTime = "";
+
+            // Read cookies
+            var cookies = document.cookie.split(";");
+
+            for (var i = 0; i < cookies.length; i++) {
+                var c = cookies[i].trim().split("=");
+
+                if (c[0] == "username")
+                    name = decodeURIComponent(c.slice(1).join("="));
+
+                if (c[0] == "lastTime")
+                    lastTime = decodeURIComponent(c.slice(1).join("="));
+            }
+
+            var now = new Date().toLocaleString();
+
+            if (name == "") {
+                name = prompt("Enter your username:");
+
+                if (name == null || name.trim() == "")
+                    name = "Guest";
+
+                document.cookie = "username=" +
+                    encodeURIComponent(name) + "; max-age=2592000; path=/";
+
+                document.getElementById("msg").innerHTML =
+                    "Welcome, " + name + "!";
+
+                document.getElementById("time").innerHTML =
+                    "First access: " + now;
+            } else {
+                document.getElementById("msg").innerHTML =
+                    "Welcome back, " + name + "!";
+
+                document.getElementById("time").innerHTML =
+                    "Last accessed: " + (lastTime || "Previous time not available");
+            }
+
+            // Save current time for the next visit
+            document.cookie = "lastTime=" +
+                encodeURIComponent(now) + "; max-age=2592000; path=/";
+        }
+    </script>
+
+</body>
+</html>

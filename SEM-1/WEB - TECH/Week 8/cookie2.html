@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Information using Cookies</title>
+</head>
+<body onload="showUser()">
+
+    <h2>User Information</h2>
+
+    <p id="msg"></p>
+    <p id="name"></p>
+    <p id="time"></p>
+
+    <script>
+        function showUser() {
+            var username = "";
+            var lastAccess = "";
+
+            var cookies = document.cookie.split(";");
+
+            for (var i = 0; i < cookies.length; i++) {
+                var c = cookies[i].trim().split("=");
+
+                if (c[0] == "username")
+                    username = decodeURIComponent(c.slice(1).join("="));
+
+                if (c[0] == "lastAccess")
+                    lastAccess = decodeURIComponent(c.slice(1).join("="));
+            }
+
+            var now = new Date().toLocaleString();
+
+            if (username == "") {
+                username = prompt("Enter your name:");
+
+                if (username == null || username.trim() == "")
+                    username = "Guest";
+
+                document.cookie = "username=" +
+                    encodeURIComponent(username) +
+                    "; max-age=2592000; path=/";
+
+                document.getElementById("msg").innerHTML =
+                    "Welcome, " + username + "!";
+
+                document.getElementById("time").innerHTML =
+                    "First Access: " + now;
+            } else {
+                document.getElementById("msg").innerHTML =
+                    "Welcome back, " + username + "!";
+
+                document.getElementById("time").innerHTML =
+                    "Last Accessed: " + lastAccess;
+            }
+
+            document.getElementById("name").innerHTML =
+                "Username: " + username;
+
+            document.cookie = "lastAccess=" +
+                encodeURIComponent(now) +
+                "; max-age=2592000; path=/";
+        }
+    </script>
+
+</body>
+</html>

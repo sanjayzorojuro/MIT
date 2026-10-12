@@ -1,0 +1,500 @@
+SET SERVEROUTPUT ON;
+
+------------------------------------------------------------
+-- 1. PREDEFINED EXCEPTIONS
+--    INVALID_NUMBER, NO_DATA_FOUND, TOO_MANY_ROWS
+------------------------------------------------------------
+
+DECLARE
+    v_num NUMBER;
+    v_empno emp.empno%TYPE;
+    v_deptno emp.deptno%TYPE;
+    v_ename emp.ename%TYPE;
+BEGIN
+    --------------------------------------------------------
+    -- i. Convert ENAME into NUMBER
+    --------------------------------------------------------
+    BEGIN
+        SELECT TO_NUMBER(ename)
+        INTO v_num
+        FROM emp
+        WHERE empno = 150;
+
+        DBMS_OUTPUT.PUT_LINE('Converted number: ' || v_num);
+
+    EXCEPTION
+        WHEN INVALID_NUMBER THEN
+            DBMS_OUTPUT.PUT_LINE('INVALID_NUMBER: ENAME cannot be converted into a number.');
+        WHEN OTHERS THEN
+            DBMS_OUTPUT.PUT_LINE('Error while converting ENAME: ' || SQLERRM);
+    END;
+
+
+    --------------------------------------------------------
+    -- ii. Display employee name for entered EMPNO
+    --------------------------------------------------------
+    BEGIN
+        v_empno := &enter_empno;
+
+        SELECT ename
+        INTO v_ename
+        FROM emp
+        WHERE empno = v_empno;
+
+        DBMS_OUTPUT.PUT_LINE('Employee Name: ' || v_ename);
+
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            DBMS_OUTPUT.PUT_LINE(
+                'NO_DATA_FOUND: Employee with EMPNO ' || v_empno || ' does not exist.'
+            );
+    END;
+
+
+    --------------------------------------------------------
+    -- iii. Display employee name for entered DEPTNO
+    -- TOO_MANY_ROWS occurs if more than one employee
+    -- belongs to the entered department.
+    --------------------------------------------------------
+    BEGIN
+        v_deptno := '&enter_deptno';
+
+        SELECT ename
+        INTO v_ename
+        FROM emp
+        WHERE deptno = v_deptno;
+
+        DBMS_OUTPUT.PUT_LINE('Employee Name: ' || v_ename);
+
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            DBMS_OUTPUT.PUT_LINE(
+                'NO_DATA_FOUND: No employee exists in department ' || v_deptno
+            );
+
+        WHEN TOO_MANY_ROWS THEN
+            DBMS_OUTPUT.PUT_LINE(
+                'TOO_MANY_ROWS: More than one employee exists in department ' || v_deptno
+            );
+    END;
+
+END;
+/
+
+
+------------------------------------------------------------
+-- 2. CALCULATE INTEREST
+-- Principle > 1000
+-- Interest rate >= 5
+-- Duration >= 1 year
+------------------------------------------------------------
+
+DECLARE
+    v_principle NUMBER;
+    v_rate      NUMBER;
+    v_year      NUMBER;
+    v_interest  NUMBER;
+BEGIN
+    v_principle := &principle;
+    v_rate      := &interest_rate;
+    v_year      := &duration;
+
+    IF v_principle <= 1000 THEN
+        RAISE_APPLICATION_ERROR(-20001,
+            'Error: Principle must be greater than 1000.');
+
+    ELSIF v_rate < 5 THEN
+        RAISE_APPLICATION_ERROR(-20002,
+            'Error: Interest rate must be at least 5%.');
+
+    ELSIF v_year < 1 THEN
+        RAISE_APPLICATION_ERROR(-20003,
+            'Error: Duration must be at least 1 year.');
+
+    ELSE
+        v_interest := (v_principle * v_rate * v_year) / 100;
+
+        DBMS_OUTPUT.PUT_LINE('Principle       : ' || v_principle);
+        DBMS_OUTPUT.PUT_LINE('Interest Rate   : ' || v_rate || '%');
+        DBMS_OUTPUT.PUT_LINE('Duration        : ' || v_year || ' years');
+        DBMS_OUTPUT.PUT_LINE('Interest        : ' || v_interest);
+    END IF;
+
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE(SQLERRM);
+END;
+/
+
+
+------------------------------------------------------------
+-- 3. ACCEPT EMPLOYEE NUMBER AND DISPLAY DETAILS
+--
+-- If employee does not exist -> user-defined error
+-- If salary > 25000 -> display message
+-- If salary < 25000 -> update salary to 25000
+------------------------------------------------------------
+
+DECLARE
+    v_empno emp.empno%TYPE;
+    v_ename emp.ename%TYPE;
+    v_salary emp.salary%TYPE;
+
+    e_employee_not_found EXCEPTION;
+    e_salary_above_limit EXCEPTION;
+
+BEGIN
+    v_empno := &employee_number;
+
+    BEGIN
+        SELECT ename, salary
+        INTO v_ename, v_salary
+        FROM emp
+        WHERE empno = v_empno;
+
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            RAISE e_employee_not_found;
+    END;
+
+
+    DBMS_OUTPUT.PUT_LINE('Employee Number : ' || v_empno);
+    DBMS_OUTPUT.PUT_LINE('Employee Name   : ' || v_ename);
+    DBMS_OUTPUT.PUT_LINE('Salary          : ' || v_salary);
+
+
+    IF v_salary > 25000 THEN
+
+        RAISE e_salary_above_limit;
+
+    ELSIF v_salary < 25000 THEN
+
+        UPDATE emp
+        SET salary = 25000
+        WHERE empno = v_empno;
+
+        DBMS_OUTPUT.PUT_LINE(
+            'Salary was less than 25000. Salary updated to 25000.'
+        );
+
+    ELSE
+
+        DBMS_OUTPUT.PUT_LINE(
+            'Salary is already 25000.'
+        );
+
+    END IF;
+
+
+EXCEPTION
+    WHEN e_employee_not_found THEN
+        DBMS_OUTPUT.PUT_LINE(
+            'ERROR: Employee number ' || v_empno || ' does not exist.'
+        );
+
+    WHEN e_salary_above_limit THEN
+        DBMS_OUTPUT.PUT_LINE(
+            'ERROR: Employee salary is more than 25000.'
+        );
+
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('ERROR: ' || SQLERRM);
+END;
+/
+
+
+------------------------------------------------------------
+-- 4. TRIGGER TO RECORD SALARY MODIFICATION
+--
+-- SAL_MOD table:
+-- Empno, Dname, Old_Sal, Mod_Date, Modifier
+------------------------------------------------------------
+
+CREATE TABLE SAL_MOD
+(
+    Empno     varchar(5),
+    Dname     VARCHAR2(15),
+    Old_Sal   NUMBER(10,2),
+    Mod_Date  DATE,
+    Modifier  VARCHAR2(30)
+);
+
+
+CREATE OR REPLACE TRIGGER trg_salary_modification
+AFTER UPDATE OF salary ON emp
+FOR EACH ROW
+DECLARE
+    v_dname dept.dname%TYPE;
+BEGIN
+
+    SELECT dname
+    INTO v_dname
+    FROM dept
+    WHERE dno = :OLD.deptno;
+
+    INSERT INTO SAL_MOD
+    (
+        Empno,
+        Dname,
+        Old_Sal,
+        Mod_Date,
+        Modifier
+    )
+    VALUES
+    (
+        :OLD.empno,
+        v_dname,
+        :OLD.salary,
+        SYSDATE,
+        USER
+    );
+
+END;
+/
+
+
+------------------------------------------------------------
+-- TEST TRIGGER 4
+------------------------------------------------------------
+
+UPDATE emp
+SET salary = salary + 1000
+WHERE empno = 101;
+
+SELECT * FROM SAL_MOD;
+
+
+------------------------------------------------------------
+-- 5. TRIGGER FOR ADDITIONAL PROJECT FUND
+--
+-- Assumption:
+-- When PROJ_FUND is increased, calculate additional fund.
+--
+-- If project duration lapsed < 50%:
+--     70% of additional fund
+--
+-- Otherwise:
+--     40% of additional fund
+------------------------------------------------------------
+
+CREATE OR REPLACE TRIGGER trg_project_additional_fund
+BEFORE UPDATE OF proj_fund ON proj
+FOR EACH ROW
+DECLARE
+    v_project_duration NUMBER;
+    v_lapsed_duration  NUMBER;
+    v_additional_fund  NUMBER;
+    v_eligible_fund    NUMBER;
+BEGIN
+
+    -- Additional amount requested
+    v_additional_fund := :NEW.proj_fund - :OLD.proj_fund;
+
+    IF v_additional_fund > 0 THEN
+
+        -- Total project duration
+        v_project_duration :=
+            :NEW.enddate - :NEW.startdate;
+
+        -- Duration already completed
+        v_lapsed_duration :=
+            CURRENT_DATE - :NEW.startdate;
+
+
+        IF v_project_duration > 0 THEN
+
+            IF v_lapsed_duration < (v_project_duration * 0.50) THEN
+
+                v_eligible_fund :=
+                    v_additional_fund * 0.70;
+
+                DBMS_OUTPUT.PUT_LINE(
+                    'You are eligible for Rs. ' ||
+                    v_eligible_fund ||
+                    ' (70% of additional fund requested)'
+                );
+
+            ELSE
+
+                v_eligible_fund :=
+                    v_additional_fund * 0.40;
+
+                DBMS_OUTPUT.PUT_LINE(
+                    'You are eligible for Rs. ' ||
+                    v_eligible_fund ||
+                    ' (40% of additional fund requested)'
+                );
+
+            END IF;
+
+        END IF;
+
+    END IF;
+
+END;
+/
+
+
+------------------------------------------------------------
+-- TEST TRIGGER 5
+------------------------------------------------------------
+
+UPDATE proj
+SET proj_fund = proj_fund + 100000
+WHERE dno = 'D1'
+AND projno = 'p1';
+
+
+------------------------------------------------------------
+-- 6. TRIGGER TO PREVENT SALARY DECREASE
+------------------------------------------------------------
+
+CREATE OR REPLACE TRIGGER trg_prevent_salary_decrease
+BEFORE UPDATE OF salary ON emp
+FOR EACH ROW
+BEGIN
+
+    IF :NEW.salary < :OLD.salary THEN
+
+        RAISE_APPLICATION_ERROR(
+            -20010,
+            'ERROR: Employee salary cannot be decreased.'
+        );
+
+    END IF;
+
+END;
+/
+
+
+------------------------------------------------------------
+-- TEST TRIGGER 6
+------------------------------------------------------------
+
+-- This statement will fail because salary is being reduced.
+-- UPDATE emp
+-- SET salary = salary - 5000
+-- WHERE empno = 101;
+
+
+------------------------------------------------------------
+-- 7. TRIGGER TO CASCADE THE LOG OF REMOVED DEPENDENTS
+--
+-- First create a log table.
+--
+-- Your question uses the name DEPENDENT, but the table you
+-- created in the question is named DEPARTMENT.
+--
+-- The following assumes your dependent table is actually
+-- named DEPARTMENT.
+------------------------------------------------------------
+
+CREATE TABLE dependent_delete_log
+(
+    depid          NUMBER(2),
+    empno          NUMBER(3),
+    departmentname VARCHAR2(20),
+    gender         CHAR(1),
+    dateofbirth    DATE,
+    relationship   VARCHAR2(15),
+    nompct         NUMBER(5,2),
+    medcover       VARCHAR2(3),
+    deleted_date   DATE,
+    deleted_by     VARCHAR2(30)
+);
+
+
+CREATE OR REPLACE TRIGGER trg_dependent_delete_log
+AFTER DELETE ON department
+FOR EACH ROW
+BEGIN
+
+    INSERT INTO dependent_delete_log
+    (
+        depid,
+        empno,
+        departmentname,
+        gender,
+        dateofbirth,
+        relationship,
+        nompct,
+        medcover,
+        deleted_date,
+        deleted_by
+    )
+    VALUES
+    (
+        :OLD.depid,
+        :OLD.empno,
+        :OLD.departmentname,
+        :OLD.gender,
+        :OLD.dateofbirth,
+        :OLD.relationship,
+        :OLD.nompct,
+        :OLD.medcover,
+        SYSDATE,
+        USER
+    );
+
+END;
+/
+
+
+------------------------------------------------------------
+-- TEST TRIGGER 7
+------------------------------------------------------------
+
+-- Example:
+-- DELETE FROM department WHERE depid = 1;
+
+-- Check deleted dependent log:
+-- SELECT * FROM dependent_delete_log;
+
+
+------------------------------------------------------------
+-- 8. TRIGGER TO PREVENT SALARY DECREASE
+--
+-- This is essentially the same requirement as Question 6.
+-- A separate trigger with the same purpose should NOT be
+-- created because both triggers would fire for the same
+-- UPDATE.
+--
+-- Therefore, Question 8 can use the following alternative
+-- trigger name if Question 6 trigger has not been created.
+------------------------------------------------------------
+
+-- DO NOT CREATE THIS IF TRIGGER 6 ALREADY EXISTS.
+--
+-- CREATE OR REPLACE TRIGGER trg_no_salary_decrease
+-- BEFORE UPDATE OF salary ON emp
+-- FOR EACH ROW
+-- BEGIN
+--     IF :NEW.salary < :OLD.salary THEN
+--         RAISE_APPLICATION_ERROR(
+--             -20011,
+--             'Salary decrease is not allowed.'
+--         );
+--     END IF;
+-- END;
+-- /
+
+
+------------------------------------------------------------
+-- CHECK CREATED TRIGGERS
+------------------------------------------------------------
+
+SELECT trigger_name, triggering_event, status
+FROM user_triggers
+WHERE table_name IN ('EMP', 'PROJ', 'DEPARTMENT');
+
+------------------------------------------------------------
+-- CHECK SALARY MODIFICATION LOG
+------------------------------------------------------------
+
+SELECT * FROM SAL_MOD;
+
+------------------------------------------------------------
+-- CHECK DELETED DEPENDENT LOG
+------------------------------------------------------------
+
+SELECT * FROM dependent_delete_log;

@@ -1,0 +1,5 @@
+
+UPDATE proj
+SET proj_fund = proj_fund + 100000
+WHERE dno = 'D1'
+AND projno = 'p1';

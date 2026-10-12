@@ -1,0 +1,6 @@
+
+UPDATE emp
+SET salary = salary + 1000
+WHERE empno = 101;
+
+SELECT * FROM SAL_MOD;
