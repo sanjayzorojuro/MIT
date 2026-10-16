@@ -1,0 +1,14 @@
+CREATE TABLE dependent_delete_log
+(
+    depid          NUMBER(2),
+    empno          NUMBER(3),
+    departmentname VARCHAR2(20),
+    gender         CHAR(1),
+    dateofbirth    DATE,
+    relationship   VARCHAR2(15),
+    nompct         NUMBER(5,2),
+    medcover       VARCHAR2(3),
+    deleted_date   DATE,
+    deleted_by     VARCHAR2(30)
+);
+

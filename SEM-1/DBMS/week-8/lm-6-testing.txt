@@ -1,0 +1,1 @@
+ UPDATE emp SET salary = salary - 5000 WHERE empno = 101;

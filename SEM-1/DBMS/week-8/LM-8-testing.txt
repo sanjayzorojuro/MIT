@@ -1,0 +1,8 @@
+
+SELECT trigger_name, triggering_event, status
+FROM user_triggers
+WHERE table_name IN ('EMP', 'PROJ', 'DEPARTMENT');
+
+SELECT * FROM SAL_MOD;
+
+SELECT * FROM dependent_delete_log;
